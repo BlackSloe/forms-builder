@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "tslint --project tsconfig.json --config tslint.json \"src/app/**/*.ts\""
+    "lint": "tslint --project tsconfig.json --config tslint.json \"src/app/**/*.ts\"",
+    "json:server": "json-server --watch server.json"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +21,10 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
+    "bootstrap": "^5.1.3",
+    "jquery": "^3.6.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
