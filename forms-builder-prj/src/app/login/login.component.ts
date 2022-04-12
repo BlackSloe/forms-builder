@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
     this.store.select(selectIsUserAuthenticated).subscribe(isAuthenticated => {
       if (isAuthenticated) {
-        console.log(isAuthenticated);
+        // console.log(isAuthenticated);
         this.router.navigate(['/homepage']);
       }
     });

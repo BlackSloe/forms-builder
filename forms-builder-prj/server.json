@@ -1,38 +1,16 @@
 {
   "users": [
     {
-      "id": 0,
-      "userName": "TestUserName",
-      "password": "password",
-      "token": ""
+      "userName": "test",
+      "password": "test",
+      "token": "123token",
+      "id": 1
     },
     {
-      "id": 1,
-      "userName": "John",
-      "password": "123john",
-      "token": ""
-    },
-    {
-      "id": 2,
-      "userName": "maxim user",
-      "password": "qwerty",
-      "token": ""
-    },
-    {
-      "id": 3,
       "userName": "qwerty",
       "password": "qwerty",
-      "token": ""
-    },
-    {
-      "userName": "123",
-      "password": "123",
-      "id": 4
-    },
-    {
-      "userName": "boots",
-      "password": "boots",
-      "id": 5
+      "token": "123token",
+      "id": 2
     }
   ]
 }

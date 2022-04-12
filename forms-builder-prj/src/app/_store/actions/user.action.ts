@@ -26,7 +26,7 @@ export const loginFailedAction = createAction(
 
 export const signUpAction = createAction(
     AuthenticationActionTypes.SIGNUP,
-    props<{ userName: string, password: string }>()
+    props<{ userName: string, password: string, token: string }>()
 );
 
 export const signUpSuccessAction = createAction(

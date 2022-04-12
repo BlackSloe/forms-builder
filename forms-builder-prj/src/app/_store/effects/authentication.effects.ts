@@ -32,19 +32,18 @@ export class AuthenticationEffects {
     )
   });
 
-
   signUp$ = createEffect(() => {
     return this.actions.pipe(
       ofType(signUpAction),
       switchMap((payLoad) => {
-        return this.authService.signUp(payLoad.userName, payLoad.password)
+        return this.authService.signUp(payLoad.userName, payLoad.password, payLoad.token)
           .pipe(
             map((user: User) => {
-              console.log(user);
+              // console.log(user);
               return signUpSuccessAction({ token: user.token!, userName: user.userName! });
             })
           )
       })
     )
-  }, { dispatch: false })
+  }, { dispatch: false });
 }

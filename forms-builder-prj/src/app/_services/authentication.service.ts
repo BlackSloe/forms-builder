@@ -28,14 +28,14 @@ export class AuthenticationService {
             .pipe(map(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
-                console.log('here');
-                console.log(this.currentUserValue);
+                // console.log('here');
+                // console.log(this.currentUserValue);
                 return user;
         }));
     }
 
-    public signUp(userName: string, password: string): Observable<User> {
-        return this.http.post<User>(`${environment.apiUrl}/users`, { userName, password });
+    public signUp(userName: string, password: string, token: string): Observable<User> {
+        return this.http.post<User>(`${environment.apiUrl}/users`, { userName, password, token });
     }
 
     public logout() {
