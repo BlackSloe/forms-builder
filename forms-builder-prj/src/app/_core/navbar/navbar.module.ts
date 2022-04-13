@@ -21,6 +21,6 @@ const material = [
     RouterModule,
     material
   ],
-  exports: [material, NavbarComponent]
+  exports: [NavbarComponent]
 })
 export class NavbarModule { }

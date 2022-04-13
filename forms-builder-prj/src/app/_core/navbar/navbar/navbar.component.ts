@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from 'src/app/_store/app.states';
 import { Store } from '@ngrx/store';
 import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { User } from 'src/app/_models/user';
 import { Router } from '@angular/router';
 import { logoutAction } from 'src/app/_store/actions/user.action';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +15,7 @@ export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;
   
   private _userName: string= '';
-  private user: User = new User()
-
   constructor(private store: Store<AppState>,
-    private authService: AuthenticationService,
     private router: Router) { }
 
 
@@ -28,16 +24,15 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(selectIsUserAuthenticated).subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-    });
+    this.store.select(selectIsUserAuthenticated)
+      .subscribe(isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+      });
 
-    this.store.select(selectAuthenticatedUser).subscribe(user => { 
-      this.user = user;
-      this._userName = this.user.userName;
-      console.log(this.user);
-      console.log({});
-    });
+    this.store.select(selectAuthenticatedUser)
+      .subscribe(user => {
+        this._userName = user.userName;
+      });
   }
 
   public logoutBtnClick(): void {

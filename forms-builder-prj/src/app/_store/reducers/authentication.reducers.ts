@@ -56,8 +56,7 @@ const _authenticationReducer = createReducer(
     on(logoutAction, (state) => ({
         ...state,
         user: new User(),
-        isAuthenticated: false,
-        errorMessage: null
+        isAuthenticated: false
     }))
 );
 

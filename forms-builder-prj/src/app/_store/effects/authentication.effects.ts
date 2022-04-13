@@ -23,7 +23,7 @@ export class AuthenticationEffects {
           .pipe(
             map((user: User[]) => {
               console.log(user);
-              if (Object.keys(user).length !== 0) {
+              if (user.length != 0) {
                 return loginSuccessAction({ user: user[0] });
               }
               return loginFailedAction({ error: 'Failed to login. There is no such user' });
@@ -50,6 +50,10 @@ export class AuthenticationEffects {
   logout$ = createEffect(() => {
     return this.actions.pipe(
       ofType(logoutAction),
+      tap(() => {
+          return this.authService.logout()
+      })
     )
-  })
+  }, { dispatch: false });
+
 }
