@@ -28,8 +28,6 @@ export class AuthenticationService {
             .pipe(map(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
-                // console.log('here');
-                // console.log(this.currentUserValue);
                 return user;
         }));
     }
@@ -40,6 +38,6 @@ export class AuthenticationService {
 
     public logout() {
         localStorage.removeItem('currentUser');
-        // this.currentUserSubject.next(null);
+        this.currentUserSubject.next(new User());
     }
 }

@@ -4,19 +4,20 @@ import {
     loginAction,
     loginFailedAction,
     loginSuccessAction,
+    logoutAction,
     signUpAction,
     signUpSuccessAction
 } from '../actions/user.action';
 
 export interface UserAuthenticationState {
     isAuthenticated: boolean;
-    user: User | null;
+    user: User;
     errorMessage: string | null;
 };
 
 export const initialState: UserAuthenticationState = {
     isAuthenticated: false,
-    user: null,
+    user: new User(),
     errorMessage: null
 };
 
@@ -25,7 +26,7 @@ const _authenticationReducer = createReducer(
     on(loginAction, (state) => ({
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: new User(),
         errorMessage: null
     })),
     on(loginSuccessAction, (state, action) => ({
@@ -42,7 +43,7 @@ const _authenticationReducer = createReducer(
     on(signUpAction, (state) => ({
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: new User(),
         errorMessage: null
     })),
     on(signUpSuccessAction, (state, action) => ({
@@ -51,6 +52,12 @@ const _authenticationReducer = createReducer(
             token: action.token,
             userName: action.userName
         }
+    })),
+    on(logoutAction, (state) => ({
+        ...state,
+        user: new User(),
+        isAuthenticated: false,
+        errorMessage: null
     }))
 );
 

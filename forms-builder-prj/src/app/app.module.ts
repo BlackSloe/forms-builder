@@ -1,38 +1,35 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticationModule } from './_core/authorisation/authentication.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { authenticationFeatureName, reducers } from './_store/app.states';
 import { AuthenticationEffects } from './_store/effects/authentication.effects';
-import { HomeComponent } from './home/home.component';
 import { AuthenticationGuard } from './_helpers/authentication.guard';
-import { AuthenticationService } from './_services/authentication.service';
+import { NavbarModule } from './_core/navbar/navbar.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
-    AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    BrowserAnimationsModule,
+
+    AppRoutingModule,
+    AuthenticationModule,
     EffectsModule.forRoot([AuthenticationEffects]),
     StoreModule.forRoot(reducers, { }),
-    StoreModule.forFeature(authenticationFeatureName, reducers.authReducer)
+    StoreModule.forFeature(authenticationFeatureName, reducers.authReducer),
+    NavbarModule
   ],
   providers: [AuthenticationGuard],
   bootstrap: [AppComponent]

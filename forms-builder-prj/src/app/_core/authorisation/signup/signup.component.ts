@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AppState } from '../_store/app.states';
+import { AppState } from '../../../_store/app.states';
 import { Store } from '@ngrx/store';
-import { signUpAction } from '../_store/actions/user.action';
-import { selectIsUserAuthenticated } from '../_store/selectors/authentication.selectors';
+import { signUpAction } from '../../../_store/actions/user.action';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,11 +26,17 @@ export class SignupComponent implements OnInit {
 
   public signUp(): void {
     const userPayload = this.signupForm.value;
-    // console.log(userPayload['userName']);
+
+    const userName = userPayload['userName'];
+    const password = userPayload['password'];
+
+    if (userName === '' || password === '') {
+      return;
+    }
 
     this.store.dispatch(signUpAction({
-      userName: userPayload['userName'],
-      password: userPayload['password'],
+      userName,
+      password,
       token: '123token'
     }));
   }
