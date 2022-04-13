@@ -3,11 +3,12 @@ import { AuthenticationGuard } from 'src/app/_helpers/authentication.guard';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { NavbarComponent } from './navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
+import { User } from 'src/app/_models/user';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let guard: AuthenticationGuard;
   let storeMock: MockStore;
 
   beforeEach(async () => {
@@ -45,6 +46,32 @@ describe('NavbarComponent', () => {
 
         expect(dispatchSpy).toHaveBeenCalled();
         expect(routerSpy).toHaveBeenCalledOnceWith(['/login']);
+    });
+  });
+
+  describe('ngOnInit', () => {
+    it('should select isAuthenticated', () => {
+      const expectedIsAuthenticated = false;
+      storeMock.overrideSelector(selectIsUserAuthenticated, expectedIsAuthenticated);
+
+      component.ngOnInit();
+
+      expect(component.isAuthenticated).toEqual(expectedIsAuthenticated);
+    });
+
+    it('should select userName if there is one', () => {
+      const expectedUserName = 'mykola';
+      const userMock: User = {
+        id: 0,
+        userName: 'mykola',
+        password: '123',
+        token: 'token'
+      };
+      storeMock.overrideSelector(selectAuthenticatedUser, userMock);
+
+      component.ngOnInit();
+
+      expect(component.userName).toEqual(expectedUserName);
     });
   });
 });

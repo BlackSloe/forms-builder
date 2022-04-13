@@ -13,8 +13,9 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;
-  
-  private _userName: string= '';
+
+  private _userName: string;
+
   constructor(private store: Store<AppState>,
     private router: Router) { }
 

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AppState } from '../../../_store/app.states';
 import { Store } from '@ngrx/store';
 import { signUpAction } from '../../../_store/actions/user.action';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -14,8 +13,7 @@ export class SignupComponent implements OnInit {
   public signupForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private store: Store<AppState>,
-    private router: Router) { }
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
