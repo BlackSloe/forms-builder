@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppState } from '../../../_store/app.states';
 import { Store } from '@ngrx/store';
-import { loginAction } from '../../../_store/actions/user.action';
+import { loginAction } from '../../../_store/actions/user.actions';
 import { selectIsUserAuthenticated } from '../../../_store/selectors/authentication.selectors';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.store.select(selectIsUserAuthenticated).subscribe(isAuthenticated => {
+      // console.log(isAuthenticated);
       if (isAuthenticated) {
         this.router.navigate(['/homepage']);
       }
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
     if (userName === '' || password === '') {
       return;
     }
+    // console.log(userName);
 
     this.store.dispatch(loginAction({
       userName,

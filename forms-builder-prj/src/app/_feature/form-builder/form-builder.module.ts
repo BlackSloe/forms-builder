@@ -7,6 +7,7 @@ import { PortalComponent } from './form-builder/portal/portal.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
 import { DragdropComponent } from './form-builder/dragdrop/dragdrop.component';
+import { SharedModule } from 'src/app/_shared/material/shared.module';
 
 const material = [
   CdkAccordionModule,
@@ -23,10 +24,12 @@ const material = [
   ],
   imports: [
     CommonModule,
+    SharedModule,
     material
   ],
   exports: [
-    material
+    material,
+    SharedModule
   ]
 })
 export class FormBuilderModule { }

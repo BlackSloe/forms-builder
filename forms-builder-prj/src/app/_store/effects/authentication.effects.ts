@@ -5,11 +5,10 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { User } from 'src/app/_models/user';
 import {
   loginAction, loginFailedAction, loginSuccessAction, logoutAction, signUpAction, signUpSuccessAction
-} from '../actions/user.action';
+} from '../actions/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationEffects {
-
   constructor(
     private actions: Actions,
     private authService: AuthenticationService
@@ -22,7 +21,6 @@ export class AuthenticationEffects {
         return this.authService.login(payLoad.userName, payLoad.password)
           .pipe(
             map((user: User[]) => {
-              console.log(user);
               if (user.length !== 0) {
                 return loginSuccessAction({ user: user[0] });
               }

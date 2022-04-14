@@ -7,7 +7,7 @@ import {
     logoutAction,
     signUpAction,
     signUpSuccessAction
-} from '../actions/user.action';
+} from '../actions/user.actions';
 
 export interface UserAuthenticationState {
     isAuthenticated: boolean;

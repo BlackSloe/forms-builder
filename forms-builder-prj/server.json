@@ -11,6 +11,12 @@
       "password": "qwerty",
       "token": "123token",
       "id": 2
+    },
+    {
+      "userName": "wow",
+      "password": "wow",
+      "token": "123token",
+      "id": 4
     }
   ]
 }

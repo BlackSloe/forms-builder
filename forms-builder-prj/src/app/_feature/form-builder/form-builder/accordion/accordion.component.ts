@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { AccordionMenuItem } from 'src/app/_models/accordion-menu-item';
+import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
+import { loadDropSectionStylesAction } from 'src/app/_store/actions/form-builder.actions';
+import { AppState } from 'src/app/_store/app.states';
 
 @Component({
   selector: 'app-accordion',
@@ -7,25 +12,25 @@ import { AccordionMenuItem } from 'src/app/_models/accordion-menu-item';
   styleUrls: ['./accordion.component.css']
 })
 export class AccordionComponent implements OnInit {
-  accordion: AccordionMenuItem[] = [];
-
   items: string[] = ['Form General Styling', 'Field Styling'];
   expandedIndex = 0;
+  
+  dropSectionStylingForm: FormGroup;
 
-  constructor() {
-    this.accordion = [
-      {
-        title: 'Form General Styling',
-        items: [{ fieldName: 'for general styiling'}]
-      },
-      {
-        title: 'Field Styiling',
-        items: [{fieldName: 'for field styiling'}]
-      }
-    ];
+  constructor(private store: Store<AppState>,
+    private formBuilder: FormBuilder) {
+
+    this.dropSectionStylingForm = this.formBuilder.group({
+      width: ['auto']
+    });
   }
 
   ngOnInit(): void {
+
   }
 
+  public applyStyles(): void {
+    const styleObj: FormBuilderStyle = { ...this.dropSectionStylingForm.value };
+    this.store.dispatch(loadDropSectionStylesAction({ styleObj }));
+  }
 }

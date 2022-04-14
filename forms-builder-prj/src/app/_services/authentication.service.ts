@@ -9,12 +9,12 @@ import { User } from '../_models/user';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    public currentUser$: Observable<User>;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(
             JSON.parse(localStorage.getItem('currentUser') || '{}'));
-        this.currentUser = this.currentUserSubject.asObservable();
+        this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User {
@@ -23,7 +23,7 @@ export class AuthenticationService {
 
     public login(userName: string, password: string): Observable<any> {
         const uri = `${environment.apiUrl}/users?userName=${userName}&password=${password}`;
-
+        // console.log('login');
         return this.http.get<any>(uri)
             .pipe(map(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user));

@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AppState } from '../../../_store/app.states';
 import { Store } from '@ngrx/store';
-import { signUpAction } from '../../../_store/actions/user.action';
+import { signUpAction } from '../../../_store/actions/user.actions';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupComponent implements OnInit {
   public signupForm!: FormGroup;

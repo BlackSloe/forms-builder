@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/_store/app.states';
 import { Store } from '@ngrx/store';
 import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { Router } from '@angular/router';
-import { logoutAction } from 'src/app/_store/actions/user.action';
-import { Subject, takeUntil } from 'rxjs';
+import { logoutAction } from 'src/app/_store/actions/user.actions';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;
@@ -32,7 +32,9 @@ export class NavbarComponent implements OnInit {
 
     this.store.select(selectAuthenticatedUser)
       .subscribe(user => {
-        this._userName = user.userName;
+        if (user) {
+          this._userName = user.userName;
+        }
       });
   }
 

@@ -1,1 +1,6 @@
-<p>dragdrop works!</p>
+<div class="dragdrop-container" [ngStyle]="styles | async">
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" class="dragdrop-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="dragdrop-box" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
+    </div>
+</div>

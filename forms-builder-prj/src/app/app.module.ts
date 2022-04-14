@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationModule } from './_core/authorisation/authentication.module';
 
 import { AppComponent } from './app.component';
-import { authenticationFeatureName, reducers } from './_store/app.states';
+import { authenticationFeatureName, formBuilderFeatureName, reducers } from './_store/app.states';
 import { AuthenticationEffects } from './_store/effects/authentication.effects';
 import { AuthenticationGuard } from './_helpers/authentication.guard';
 import { NavbarModule } from './_core/navbar/navbar.module';
@@ -28,7 +28,8 @@ import { NavbarModule } from './_core/navbar/navbar.module';
     AuthenticationModule,
     EffectsModule.forRoot([AuthenticationEffects]),
     StoreModule.forRoot(reducers, { }),
-    StoreModule.forFeature(authenticationFeatureName, reducers.authReducer),
+    StoreModule.forFeature(authenticationFeatureName, reducers.authenticationReducer),
+    StoreModule.forFeature(formBuilderFeatureName, reducers.formBuilderReducer),
     NavbarModule
   ],
   providers: [AuthenticationGuard],
