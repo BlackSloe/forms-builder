@@ -1,14 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from 'src/app/_models/user';
-
-export enum AuthenticationActionTypes {
-    LOGIN = '[Auth] Login',
-    LOGIN_SUCCESS = '[Auth] Login Success',
-    LOGIN_FAILED = '[Auth] Login Failed',
-    SIGNUP = '[Auth] Signup',
-    SIGNUP_SUCCESS = '[Auth] Signup Success',
-    LOGOUT = '[Auth] Logout'
-}
+import { AuthenticationActionTypes } from 'src/app/_enums/authentication.action.types';
 
 export const loginAction = createAction(
     AuthenticationActionTypes.LOGIN,

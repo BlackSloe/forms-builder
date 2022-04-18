@@ -17,6 +17,12 @@
       "password": "wow",
       "token": "123token",
       "id": 4
+    },
+    {
+      "userName": "sasha_lox",
+      "password": "sasha_xuilo123",
+      "token": "123token",
+      "id": 5
     }
   ]
 }

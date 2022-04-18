@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AccordionMenuItem } from 'src/app/_models/accordion-menu-item';
 import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
-import { loadDropSectionStylesAction } from 'src/app/_store/actions/form-builder.actions';
+import { setDropSectionStylesAction } from 'src/app/_store/actions/form-builder.actions';
 import { AppState } from 'src/app/_store/app.states';
 
 @Component({
@@ -21,7 +20,11 @@ export class AccordionComponent implements OnInit {
     private formBuilder: FormBuilder) {
 
     this.dropSectionStylingForm = this.formBuilder.group({
-      width: ['auto']
+      minWidth: [''],
+      height: [''],
+      borderWidth: [''],
+      borderStyle: [''],
+      borderColor: ['']
     });
   }
 
@@ -30,7 +33,18 @@ export class AccordionComponent implements OnInit {
   }
 
   public applyStyles(): void {
-    const styleObj: FormBuilderStyle = { ...this.dropSectionStylingForm.value };
-    this.store.dispatch(loadDropSectionStylesAction({ styleObj }));
+    const styleModel: FormBuilderStyle = new FormBuilderStyle();
+
+    for(let formPropName in this.dropSectionStylingForm.value) {
+      const formPropValue = this.dropSectionStylingForm.controls[formPropName].value;
+
+      const styleProp = styleModel.styles.find(styleProp => styleProp.propName == formPropName);
+
+      styleProp!.propValue = formPropValue;
+
+      // console.log(styleProp);
+    }
+
+    this.store.dispatch(setDropSectionStylesAction({ styleObj: styleModel }));
   }
 }

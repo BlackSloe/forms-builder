@@ -15,27 +15,23 @@
           <div class="mat-form-field-container">
             <mat-form-field>
               <mat-label>Form width, px</mat-label>
-              <input matInput required formControlName="width">
+              <input matInput required formControlName="minWidth">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Form height, px</mat-label>
-              <input matInput required>
+              <input matInput required formControlName="height">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Border width, px</mat-label>
-              <input matInput required>
+              <input matInput required formControlName="borderWidth">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Border type</mat-label>
-              <input matInput required>
+              <input matInput required formControlName="borderStyle">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Border color</mat-label>
-              <input matInput required>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Shadow</mat-label>
-              <input matInput required>
+              <input matInput required formControlName="borderColor">
             </mat-form-field>
             <button type="submit" class="btn btn-warn">Apply Styles</button>
           </div>

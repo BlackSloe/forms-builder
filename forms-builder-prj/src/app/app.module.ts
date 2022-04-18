@@ -13,6 +13,7 @@ import { authenticationFeatureName, formBuilderFeatureName, reducers } from './_
 import { AuthenticationEffects } from './_store/effects/authentication.effects';
 import { AuthenticationGuard } from './_helpers/authentication.guard';
 import { NavbarModule } from './_core/navbar/navbar.module';
+import { FormBuilderEffects } from './_store/effects/form-builder.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { NavbarModule } from './_core/navbar/navbar.module';
 
     AppRoutingModule,
     AuthenticationModule,
-    EffectsModule.forRoot([AuthenticationEffects]),
+    EffectsModule.forRoot([FormBuilderEffects, AuthenticationEffects]),
     StoreModule.forRoot(reducers, { }),
     StoreModule.forFeature(authenticationFeatureName, reducers.authenticationReducer),
     StoreModule.forFeature(formBuilderFeatureName, reducers.formBuilderReducer),
