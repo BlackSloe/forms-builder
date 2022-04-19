@@ -1,0 +1,8 @@
+<div class="drag-container" >
+    <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="dragSectionItems" class="drag-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of dragSectionItems" class="drag-box" cdkDrag>
+            <app-drag-section-item [item]="item"></app-drag-section-item>
+        </div>
+    </div>
+</div>

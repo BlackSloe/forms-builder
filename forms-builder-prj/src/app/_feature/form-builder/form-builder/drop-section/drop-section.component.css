@@ -1,4 +1,4 @@
-.dragdrop-container {
+.drop-container {
     min-width: 400px;
     max-width: 100%;
     margin: 0 25px 25px 0;
@@ -7,7 +7,7 @@
     background-color: #00000009;
 }
 
-.dragdrop-list {
+.drop-list {
     border: solid 1px #ccc;
     min-height: 60px;
     border-radius: 4px;
@@ -15,7 +15,7 @@
     display: block;
 }
 
-.dragdrop-box {
+.drop-box {
     padding: 20px 10px;
     border: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
@@ -27,6 +27,6 @@
     margin: 10px;
   }
 
-.dragdrop-box:hover {
+.drop-box:hover {
     cursor: pointer;
 }

@@ -11,7 +11,7 @@ import { AppState } from 'src/app/_store/app.states';
   styleUrls: ['./accordion.component.css']
 })
 export class AccordionComponent implements OnInit {
-  items: string[] = ['Form General Styling', 'Field Styling'];
+  public tabs: string[] = ['Form General Styling', 'Field Styling'];
   expandedIndex = 0;
   
   dropSectionStylingForm: FormGroup;
@@ -41,8 +41,6 @@ export class AccordionComponent implements OnInit {
       const styleProp = styleModel.styles.find(styleProp => styleProp.propName == formPropName);
 
       styleProp!.propValue = formPropValue;
-
-      // console.log(styleProp);
     }
 
     this.store.dispatch(setDropSectionStylesAction({ styleObj: styleModel }));

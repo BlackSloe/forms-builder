@@ -8,7 +8,8 @@ import { logoutAction } from 'src/app/_store/actions/user.actions';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;
@@ -31,7 +32,6 @@ export class NavbarComponent implements OnInit {
 
     this.store.select(selectAuthenticatedUser)
       .subscribe(user => {
-        console.log(user);
         if (user) {
           this._userName = user.userName;
         }

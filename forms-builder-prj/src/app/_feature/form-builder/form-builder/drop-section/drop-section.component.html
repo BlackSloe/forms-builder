@@ -1,0 +1,7 @@
+<div class="drop-container" >
+    <div [ngStyle]="styles | async" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" class="drop-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of todo" (click)="onItemClick($event)" 
+            class="drop-box" cdkDrag>{{ item }}</div>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 <div>
   <cdk-accordion class="accordion">
-    <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
+    <cdk-accordion-item *ngFor="let tab of tabs; let index = index;" #accordionItem="cdkAccordionItem"
       class="accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
       [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
       <div class="accordion-item-header" (click)="accordionItem.toggle()">
-        <h4>{{ item }}</h4>
+        <h4>{{ tab }}</h4>
         <span class="accordion-item-description">
           Click to {{ accordionItem.expanded ? 'close' : 'open' }}
         </span>
