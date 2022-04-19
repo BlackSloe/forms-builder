@@ -1,9 +1,13 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap } from "rxjs";
-import { FormBuilderStyle } from "src/app/_models/form-builder-style";
-import { FormBuilderStylingService } from "src/app/_services/form-builder-styling.service";
-import { setDropSectionStylesAction, setDropSectionStylesFailedAction, setDropSectionStylesSuccessAction } from "../actions/form-builder.actions";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map, switchMap } from 'rxjs';
+import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
+import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
+import {
+    setDropSectionStylesAction,
+    setDropSectionStylesFailedAction,
+    setDropSectionStylesSuccessAction
+} from '../actions/form-builder.actions';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderEffects {
@@ -22,10 +26,9 @@ export class FormBuilderEffects {
                         map((styles: FormBuilderStyle) => {
                             // console.log('1');
                             if (this.formBuilderStyleService.isStylesValid) {
-                                // console.log(styles);
                                 return setDropSectionStylesSuccessAction({ styleObj: styles });
                             }
-                            return setDropSectionStylesFailedAction({ 
+                            return setDropSectionStylesFailedAction({
                                 errorMessage: this.formBuilderStyleService.errorMessages.join(', ')
                             });
                         })

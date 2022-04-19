@@ -1,6 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
-import { loadDropSectionStylesAction, setDropSectionStylesAction, setDropSectionStylesFailedAction, setDropSectionStylesSuccessAction } from '../actions/form-builder.actions';
+import {
+    loadDropSectionStylesAction,
+    setDropSectionStylesAction,
+    setDropSectionStylesFailedAction,
+    setDropSectionStylesSuccessAction
+} from '../actions/form-builder.actions';
 
 export interface FormBuilderStyleState {
     formGeneralStyles: FormBuilderStyle;
@@ -32,7 +37,7 @@ const _formBuilderReducer = createReducer(
         ...state,
         formGeneralStyles: state.formGeneralStyles
     }))
-);  
+);
 
 export function formBuilderReducer(state: any, action: any) {
     return _formBuilderReducer(state, action);

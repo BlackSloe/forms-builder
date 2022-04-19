@@ -13,7 +13,7 @@ import { AppState } from 'src/app/_store/app.states';
 export class AccordionComponent implements OnInit {
   public tabs: string[] = ['Form General Styling', 'Field Styling'];
   expandedIndex = 0;
-  
+
   dropSectionStylingForm: FormGroup;
 
   constructor(private store: Store<AppState>,
@@ -35,10 +35,10 @@ export class AccordionComponent implements OnInit {
   public applyStyles(): void {
     const styleModel: FormBuilderStyle = new FormBuilderStyle();
 
-    for(let formPropName in this.dropSectionStylingForm.value) {
+    for (const formPropName in this.dropSectionStylingForm.value) {
       const formPropValue = this.dropSectionStylingForm.controls[formPropName].value;
 
-      const styleProp = styleModel.styles.find(styleProp => styleProp.propName == formPropName);
+      const styleProp = styleModel.styles.find(styleProp => styleProp.propName === formPropName);
 
       styleProp!.propValue = formPropValue;
     }

@@ -9,6 +9,8 @@ import { PortalModule } from '@angular/cdk/portal';
 import { DropSectionComponent } from './form-builder/drop-section/drop-section.component';
 import { SharedModule } from 'src/app/_shared/material/shared.module';
 import { DragSectionItemComponent } from './form-builder/drag-section/drag-section-item/drag-section-item.component';
+import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
+import { PortalBridgeService } from 'src/app/_services/portal-bridge.service';
 
 const material = [
   CdkAccordionModule,
@@ -32,6 +34,9 @@ const material = [
   exports: [
     material,
     SharedModule
+  ],
+  providers: [
+    PortalBridgeService
   ]
 })
 export class FormBuilderModule { }

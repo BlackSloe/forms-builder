@@ -7,14 +7,12 @@ export const selectFormBuilderState = createFeatureSelector<FormBuilderStyleStat
 export const selectFormBuilderStyles = createSelector(
     selectFormBuilderState,
     (state: any) => {
-        let styleObj = {} as any;
-        // console.log(state);
-        
-        for(const style of state.formGeneralStyles.styles) {
+        const styleObj = {} as any;
+
+        for (const style of state.formGeneralStyles.styles) {
             styleObj[style.propName] = style.propValue;
-            // console.log(style.propValue);
         }
-        // console.log(styleObj);
+
         return styleObj;
     }
 );

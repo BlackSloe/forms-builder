@@ -7,7 +7,8 @@ import { FormBuilderStyle } from '../_models/form-builder-style';
 export class FormBuilderStylingService {
     private currentFormBuilderStylesSubject: BehaviorSubject<FormBuilderStyle>;
     private _currentFormBuilderStyles$: Observable<FormBuilderStyle>;
-    private _isValid: boolean = true;
+
+    private _isValid = true;
     private _errorMessages: string[] = [];
 
     private readonly borderStyles = [
@@ -45,17 +46,17 @@ export class FormBuilderStylingService {
     }
 
     public validateStyles(): void {
-        const formBuilderStyles: FormBuilderStyle = JSON.parse(JSON.stringify(this.currentFormBuilderStylesSubject.value));
+        const formBuilderStyles: FormBuilderStyle =
+            JSON.parse(JSON.stringify(this.currentFormBuilderStylesSubject.value));
 
-        for(const style of formBuilderStyles.styles) {
-            for(const validationRule of style.validationRules) {
+        for (const style of formBuilderStyles.styles) {
+            for (const validationRule of style.validationRules) {
 
                 switch (validationRule) {
                     case FormBuilderStylePropertyValidationRules.IS_MEASURED_IN_PIXELS: {
                         if (this.isDigit(style.propValue)) {
                             style.propValue = this.appendPixels(style.propValue);
-                        }
-                        else {
+                        } else {
                             this._errorMessages.push(`${style.propName} is not digit`);
                             this._isValid = false;
                         }
@@ -92,12 +93,12 @@ export class FormBuilderStylingService {
     }
 
     private appendPixels(propValue: string): string {
-        if(!propValue.endsWith('px')) {
+        if (!propValue.endsWith('px')) {
             return propValue.concat('px');
         }
         return propValue;
     }
-    
+
     private isDigit(propValue: string): boolean {
         return /^\d+$/.test(propValue);
     }
