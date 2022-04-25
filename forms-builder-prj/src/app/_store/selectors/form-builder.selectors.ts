@@ -4,15 +4,16 @@ import { FormBuilderStyleState } from '../reducers/form-builder.reducers';
 
 export const selectFormBuilderState = createFeatureSelector<FormBuilderStyleState>(formBuilderFeatureName);
 
-export const selectFormBuilderStyles = createSelector(
+export const selectFormBuilderFormStyles = createSelector(
     selectFormBuilderState,
-    (state: any) => {
-        const styleObj = {} as any;
-
-        for (const style of state.formGeneralStyles.styles) {
-            styleObj[style.propName] = style.propValue;
-        }
-
-        return styleObj;
-    }
+    (state: FormBuilderStyleState) => state.formGeneralStyles
 );
+
+
+// const styleObj = {} as any;
+
+// for (const style of state.formGeneralStyles.styles) {
+//     styleObj[style.propName] = style.propValue;
+// }
+
+// return styleObj;

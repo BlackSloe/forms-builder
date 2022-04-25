@@ -8,12 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationModule } from './_core/authorisation/authentication.module';
 
+
 import { AppComponent } from './app.component';
 import { authenticationFeatureName, formBuilderFeatureName, reducers } from './_store/app.states';
 import { AuthenticationEffects } from './_store/effects/authentication.effects';
 import { AuthenticationGuard } from './_helpers/authentication.guard';
 import { NavbarModule } from './_core/navbar/navbar.module';
 import { FormBuilderEffects } from './_store/effects/form-builder.effects';
+import { MatSelectModule } from '@angular/material/select';
+import { SeparatorPipe } from './_shared/pipes/input-field-separator.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { FormBuilderEffects } from './_store/effects/form-builder.effects';
   ],
   imports: [
     BrowserModule,
+    MatSelectModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

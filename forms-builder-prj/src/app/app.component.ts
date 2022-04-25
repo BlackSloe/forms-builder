@@ -5,10 +5,4 @@ import {  ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-
-  // render(): boolean {
-  //   console.log('app-render');
-  //   return true;
-  // }
-}
+export class AppComponent {}

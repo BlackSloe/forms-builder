@@ -3,40 +3,47 @@ import { CommonModule } from '@angular/common';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { AccordionComponent } from './form-builder/accordion/accordion.component'
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { DragSectionComponent } from './form-builder/drag-section/drag-section.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
 import { DropSectionComponent } from './form-builder/drop-section/drop-section.component';
 import { SharedModule } from 'src/app/_shared/material/shared.module';
-import { DragSectionItemComponent } from './form-builder/drag-section/drag-section-item/drag-section-item.component';
-import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
-import { PortalBridgeService } from 'src/app/_services/portal-bridge.service';
+import { DragDropListItemModule } from 'src/app/_shared/components/drag-drop-list-item/drag-drop-list-item.module';
+import { DragSectionComponent } from './form-builder/drag-section/drag-section.component';
+import { MatIconModule } from '@angular/material/icon';
+import { AccordionItemBodyComponent } from './form-builder/accordion/accordion-item-body/accordion-item-body.component';
+import { SeparatorPipe } from 'src/app/_shared/pipes/input-field-separator.pipe';
+import { UnitAppenderPipe } from 'src/app/_shared/pipes/input-field-unit-appender.pipe';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 const material = [
   CdkAccordionModule,
   DragDropModule,
-  PortalModule
+  PortalModule,
+  MatIconModule
 ];
 
 @NgModule({
   declarations: [
     FormBuilderComponent,
     AccordionComponent,
-    DragSectionComponent,
     DropSectionComponent,
-    DragSectionItemComponent
+    DragSectionComponent,
+    AccordionItemBodyComponent,
+    SeparatorPipe,
+    UnitAppenderPipe
   ],
   imports: [
     CommonModule,
     SharedModule,
-    material
+    DragDropListItemModule,
+    material,
+    
+    ReactiveComponentModule
   ],
   exports: [
     material,
+    DragDropListItemModule,
     SharedModule
-  ],
-  providers: [
-    PortalBridgeService
   ]
 })
 export class FormBuilderModule { }

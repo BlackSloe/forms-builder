@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs';
-import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
+import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
 import {
     setDropSectionStylesAction,
@@ -21,9 +21,9 @@ export class FormBuilderEffects {
                 this.formBuilderStyleService.newStyle(payLoad.styleObj);
                 this.formBuilderStyleService.validateStyles();
 
-                return this.formBuilderStyleService.currentFormBuilderStyles$
+                return this.formBuilderStyleService.currentFormBuilderFormStyles$
                     .pipe(
-                        map((styles: FormBuilderStyle) => {
+                        map((styles: FormBuilderFormStyle) => {
                             // console.log('1');
                             if (this.formBuilderStyleService.isStylesValid) {
                                 return setDropSectionStylesSuccessAction({ styleObj: styles });

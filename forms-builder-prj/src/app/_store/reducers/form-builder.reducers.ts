@@ -1,19 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
-import { FormBuilderStyle } from 'src/app/_models/form-builder-style';
+import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import {
-    loadDropSectionStylesAction,
+    loadDropSectionFormStylesAction,
     setDropSectionStylesAction,
     setDropSectionStylesFailedAction,
     setDropSectionStylesSuccessAction
 } from '../actions/form-builder.actions';
 
 export interface FormBuilderStyleState {
-    formGeneralStyles: FormBuilderStyle;
+    formGeneralStyles: FormBuilderFormStyle;
     errorMessage: string | null;
 };
 
 export const initialState: FormBuilderStyleState = {
-    formGeneralStyles: new FormBuilderStyle(),
+    formGeneralStyles: new FormBuilderFormStyle(),
     errorMessage: null
 };
 
@@ -33,10 +33,11 @@ const _formBuilderReducer = createReducer(
         ...state,
         errorMessage: state.errorMessage
     })),
-    on(loadDropSectionStylesAction, (state) => ({
+    on(loadDropSectionFormStylesAction, (state) => ({ //add success and failed
         ...state,
         formGeneralStyles: state.formGeneralStyles
-    }))
+    })),
+    
 );
 
 export function formBuilderReducer(state: any, action: any) {

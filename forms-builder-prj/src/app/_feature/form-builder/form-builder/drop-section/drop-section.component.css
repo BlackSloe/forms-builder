@@ -28,5 +28,32 @@
   }
 
 .drop-box:hover {
+    cursor: all-scroll;
+}
+
+.drop-item {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drop-box:hover {
+    border-color: #673ab7;
+    border-width: 1px;
+}
+
+.drop-item-close {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.drop-item-close:hover {
     cursor: pointer;
+}
+
+.highlight {
+    border-color: red;
+    border-width: 1px;
 }

@@ -1,10 +1,10 @@
 import {
     FormBuilderStylePropertyValidationRules as ValidationRules
 } from '../_enums/form-builder-style-property-validation-rules';
-import { FormBuilderStyleProperty } from './form-builder-style-property';
+import { FormBuilderFormStyleProperty } from './form-builder-form-style-property';
 
-export class FormBuilderStyle {
-    public styles: FormBuilderStyleProperty[] = [];
+export class FormBuilderFormStyle {
+    public styles: FormBuilderFormStyleProperty[] = [];
 
     constructor() {
         this.styles = [

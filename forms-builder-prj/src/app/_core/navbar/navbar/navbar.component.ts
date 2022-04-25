@@ -8,8 +8,7 @@ import { logoutAction } from 'src/app/_store/actions/user.actions';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;

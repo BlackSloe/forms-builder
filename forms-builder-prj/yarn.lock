@@ -169,7 +169,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@~13.3.0", "@angular/common@13.3.2":
+"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@~13.3.0", "@angular/common@13.3.2":
   "integrity" "sha512-tQ2dKh5v/a0Nz6EXguw/vyms8VeRhcZO0F2xd9C+UdS3DVBftC1milluWGpjXdkLijTlJBCr114aXyZsyjNf3g=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-13.3.2.tgz"
   "version" "13.3.2"
@@ -1231,6 +1231,13 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
+
+"@ngrx/component@^13.1.0":
+  "integrity" "sha512-XFeFlGa2UoKzUh2TKJ/c0SL6sKnwCuN6KCyNfYERkvNuT2P1YjePi0O0/09lFUQmglXmc1Ywi5a0IoaXhUce0Q=="
+  "resolved" "https://registry.npmjs.org/@ngrx/component/-/component-13.1.0.tgz"
+  "version" "13.1.0"
+  dependencies:
+    "tslib" "^2.0.0"
 
 "@ngrx/effects@^13.1.0":
   "integrity" "sha512-b0kaC1yly1WawtQils3Bxy2FhE9OwlQD/bptVd3s+bskdZ+iw9VlAMH9Spk2mfX+MyOEOk2FyrWlrOePtkw+7Q=="

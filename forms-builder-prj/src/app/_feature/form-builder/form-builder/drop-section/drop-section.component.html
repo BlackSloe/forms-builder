@@ -1,9 +1,17 @@
 <div class="drop-container">
-    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" 
-        (cdkDropListDropped)="drop($event)" id="drop-list" [ngStyle]="styles | async" class="drop-list">
-        <div *ngFor="let item of todo" class="drop-box" cdkDrag>{{ item }}</div>
-        <ng-template [cdkPortalOutlet]="portal$ | async">
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="dragSectionItems" 
+        (cdkDropListDropped)="drop($event)" id="drop-list" [ngStyle]="styles" class="drop-list">
 
-        </ng-template>
+        <div *ngFor="let item of dragSectionItems; let index = index" [attr.id]="index" [ngClass]="{'highlight': selectedIndex === index}"
+            class="drop-box" (click)="onItemClick(index)" cdkDrag>
+            <div class="drop-item" >
+
+                <app-drag-drop-list-item [component]="item">
+
+                </app-drag-drop-list-item>
+                
+                <p class="drop-item-close" (click)="onItemCloseClick(index)">x</p>
+            </div>
+        </div>
     </div>
 </div>

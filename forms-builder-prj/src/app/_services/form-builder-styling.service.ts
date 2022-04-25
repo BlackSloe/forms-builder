@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
-import { FormBuilderStyle } from '../_models/form-builder-style';
+import { FormBuilderFormStyle } from '../_models/form-builder-form-style';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderStylingService {
-    private currentFormBuilderStylesSubject: BehaviorSubject<FormBuilderStyle>;
-    private _currentFormBuilderStyles$: Observable<FormBuilderStyle>;
+    private currentFormBuilderFormStylesSubject: BehaviorSubject<FormBuilderFormStyle>;
+    private _currentFormBuilderFormStyles$: Observable<FormBuilderFormStyle>;
 
     private _isValid = true;
     private _errorMessages: string[] = [];
@@ -33,23 +33,23 @@ export class FormBuilderStylingService {
     }
 
     constructor() {
-        this.currentFormBuilderStylesSubject = new BehaviorSubject<FormBuilderStyle>(new FormBuilderStyle());
-        this._currentFormBuilderStyles$ = this.currentFormBuilderStylesSubject.asObservable();
+        this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyle>(new FormBuilderFormStyle());
+        this._currentFormBuilderFormStyles$ = this.currentFormBuilderFormStylesSubject.asObservable();
     }
 
-    public get currentFormBuilderStyles$(): Observable<FormBuilderStyle> {
-        return this._currentFormBuilderStyles$;
+    public get currentFormBuilderFormStyles$(): Observable<FormBuilderFormStyle> {
+        return this._currentFormBuilderFormStyles$;
     }
 
-    public newStyle(value: FormBuilderStyle): void {
-        this.currentFormBuilderStylesSubject.next(value);
+    public newStyle(value: FormBuilderFormStyle): void {
+        this.currentFormBuilderFormStylesSubject.next(value);
     }
 
     public validateStyles(): void {
-        const formBuilderStyles: FormBuilderStyle =
-            JSON.parse(JSON.stringify(this.currentFormBuilderStylesSubject.value));
+        const FormBuilderFormStyles: FormBuilderFormStyle =
+            JSON.parse(JSON.stringify(this.currentFormBuilderFormStylesSubject.value));
 
-        for (const style of formBuilderStyles.styles) {
+        for (const style of FormBuilderFormStyles.styles) {
             for (const validationRule of style.validationRules) {
 
                 switch (validationRule) {
@@ -87,8 +87,8 @@ export class FormBuilderStylingService {
                 }
             }
         }
-        console.log(formBuilderStyles);
-        this.currentFormBuilderStylesSubject.next(formBuilderStyles);
+        console.log(FormBuilderFormStyles);
+        this.currentFormBuilderFormStylesSubject.next(FormBuilderFormStyles);
         // console.log(this._errorMessages);
     }
 

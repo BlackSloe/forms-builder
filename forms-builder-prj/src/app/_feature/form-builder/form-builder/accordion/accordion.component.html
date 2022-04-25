@@ -1,42 +1,29 @@
 <div>
   <cdk-accordion class="accordion">
+
     <cdk-accordion-item *ngFor="let tab of tabs; let index = index;" #accordionItem="cdkAccordionItem"
       class="accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
       [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
-      <div class="accordion-item-header" (click)="accordionItem.toggle()">
+
+      <div class="accordion-item-header" (click)="accordionItemClick(accordionItem, tab)">
         <h4>{{ tab }}</h4>
         <span class="accordion-item-description">
           Click to {{ accordionItem.expanded ? 'close' : 'open' }}
         </span>
       </div>
+
       <div class="accordion-item-body" role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
-        <form [formGroup]="dropSectionStylingForm" (ngSubmit)="applyStyles()">
-          <div class="mat-form-field-container">
-            <mat-form-field>
-              <mat-label>Form width, px</mat-label>
-              <input matInput required formControlName="minWidth">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Form height, px</mat-label>
-              <input matInput required formControlName="height">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Border width, px</mat-label>
-              <input matInput required formControlName="borderWidth">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Border type</mat-label>
-              <input matInput required formControlName="borderStyle">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Border color</mat-label>
-              <input matInput required formControlName="borderColor">
-            </mat-form-field>
-            <button type="submit" class="btn btn-warn">Apply Styles</button>
-          </div>
-        </form>
+
+        <app-accordion-item-body 
+        [dropSectionStylingForm]="dropSectionStylingForm" 
+        [formBuilderStyles$]="generalFormStyle$"
+        (formBuilderEmitter)="onFormSubmit(dropSectionStylingForm)">
+        </app-accordion-item-body>
+        
       </div>
+
     </cdk-accordion-item>
+
   </cdk-accordion>
 </div>

@@ -1,11 +1,11 @@
-<div class="drag-container" >
+<div class="drag-container">
     <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="dragSectionItems" (cdkDropListDropped)="drop($event)"
         cdkDropListConnectedTo="drop-list" id="drag-list" class="drag-list">
-        <div *ngFor="let item of dragSectionItems" class="drag-box" cdkDrag>
-            <app-drag-section-item [item]="item"></app-drag-section-item>
+
+        <div *ngFor="let dragSectionItem of dragSectionItems" class="drag-box" cdkDrag>
+
+            <app-drag-drop-list-item [component]="dragSectionItem"></app-drag-drop-list-item>
+
         </div>
     </div>
 </div>
-<ng-container *cdkPortal>
-    <h6>1</h6>
-</ng-container>

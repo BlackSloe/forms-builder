@@ -13,8 +13,4 @@ export class FormBuilderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // render(): boolean {
-  //   console.log('render');
-  //   return true;
-  // }
 }
