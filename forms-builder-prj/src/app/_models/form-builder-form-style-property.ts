@@ -4,6 +4,6 @@ import { StyleProperty } from './style-property';
 export class FormBuilderFormStyleProperty implements StyleProperty {
     propName: string;
     propValue: string;
-    
+
     validationRules: FormBuilderStylePropertyValidationRules[];
 }

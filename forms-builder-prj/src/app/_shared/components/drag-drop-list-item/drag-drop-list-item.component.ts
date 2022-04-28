@@ -1,37 +1,47 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { DragDropListItem } from '../../abstract/drag-drop-list-item.abstract';
-import { DynamicTemplateDirective, DynamicTemplateListItemComponent } from '../../directives/dynamic.template.directive';
-import { DragDropListItemInputComponent } from '../drag-drop-list-items/drag-drop-list-item-input/drag-drop-list-item-input.component';
-
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-drag-drop-list-item',
   templateUrl: './drag-drop-list-item.component.html',
   styleUrls: ['./drag-drop-list-item.component.css']
 })
-export class DragDropListItemComponent implements OnInit, AfterViewInit {
-  @Input() 
-  component: DynamicTemplateListItemComponent;
+export class DragDropListItemComponent<T> implements OnInit, AfterViewInit {
+  @Input()
+  component: any;
 
-  @ViewChild('dynamicComponent', { read: ViewContainerRef })
-  dynamicTemplate: ViewContainerRef;
-  
-  constructor() { }
+  @Input()
+  type: T;
+  // @Input()
+  // type: Type<any>;
+
+  // @ViewChild('dynamicComponent', { read: ViewContainerRef })
+  // dynamicTemplate: ViewContainerRef;
+
+  constructor() {
+
+  }
 
   ngAfterViewInit(): void {
     this.loadComponents();
   }
 
   ngOnInit(): void {
-    // this.loadComponents();
+    console.log(`Hello ${this.type}`);
+    // console.log(this.component);
+    // let t: Type<IDragDropListItemComponent>;
   }
 
   loadComponents(): void {
-    const viewContainerRef = this.dynamicTemplate;
-    viewContainerRef.clear();
+    // const viewContainerRef = this.dynamicTemplate;
+    // viewContainerRef.clear();
+    // ;
+    // const l = Type(this.component.constructor.name);
 
-    const componentRef = viewContainerRef
-      .createComponent<DynamicTemplateListItemComponent>(this.component.component);
-    componentRef.instance.data = this.component.data;
+    // const componentRef = viewContainerRef
+    //   .createComponent<IDragDropListItemComponent>(this.type);
+
+    // console.log(componentRef.instance);
+    //   componentRef.instance.dragDropListItem = this.component.dragDropListItem;
+
   }
 
 }

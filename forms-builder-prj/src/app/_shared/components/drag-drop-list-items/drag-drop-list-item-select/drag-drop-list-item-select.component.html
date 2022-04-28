@@ -1,5 +1,5 @@
-<mat-form-field>
-    <mat-label>Select Options</mat-label>
+<mat-form-field [ngStyle]="_styles">
+    <mat-label>{{ dragDropListItem?.placeHolderText ? dragDropListItem?.placeHolderText : 'Default Text' }}</mat-label>
     <mat-select>
         <mat-option>Select one</mat-option>
         <mat-option>Select two</mat-option>

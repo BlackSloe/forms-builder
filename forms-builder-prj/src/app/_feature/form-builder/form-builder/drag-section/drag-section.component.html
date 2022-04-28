@@ -2,10 +2,10 @@
     <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="dragSectionItems" (cdkDropListDropped)="drop($event)"
         cdkDropListConnectedTo="drop-list" id="drag-list" class="drag-list">
 
-        <div *ngFor="let dragSectionItem of dragSectionItems" class="drag-box" cdkDrag>
+        <div *ngFor="let dragSectionItem of dragSectionItems; let index = index" class="drag-box" cdkDrag>
 
-            <app-drag-drop-list-item [component]="dragSectionItem"></app-drag-drop-list-item>
-
+            <dynamic-component [componentType]="dragSectionItem.type"></dynamic-component>
+            
         </div>
     </div>
 </div>

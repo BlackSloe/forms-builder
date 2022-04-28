@@ -16,9 +16,9 @@
         [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
 
         <app-accordion-item-body 
-        [dropSectionStylingForm]="dropSectionStylingForm" 
-        [formBuilderStyles$]="generalFormStyle$"
-        (formBuilderEmitter)="onFormSubmit(dropSectionStylingForm)">
+        [stylingFormGroup]="currentFormGroup" 
+        [formBuilderStyles$]="currentStyles$"
+        (styilingFormGroupEmitter)="onFormSubmit(currentFormGroup)">
         </app-accordion-item-body>
         
       </div>

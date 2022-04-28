@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DragDropListItemComponent } from './drag-drop-list-item.component';
 
 describe('DragDropListItemComponent', () => {
-  let component: DragDropListItemComponent;
-  let fixture: ComponentFixture<DragDropListItemComponent>;
+  let component: DragDropListItemComponent<any>;
+  let fixture: ComponentFixture<DragDropListItemComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

@@ -1,4 +1,4 @@
-<mat-form-field>
-    <mat-label>Some Text</mat-label>
+<mat-form-field [ngStyle]="_styles">
+    <mat-label>{{ dragDropListItem?.placeHolderText ? dragDropListItem?.placeHolderText : 'Default Text' }}</mat-label>
     <input matInput cdkTextareaAutosize>
 </mat-form-field>

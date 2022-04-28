@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderActionTypes } from 'src/app/_enums/form-builder.action.types';
+import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
 
 
 export const setDropSectionStylesAction = createAction(
@@ -24,9 +25,9 @@ export const loadDropSectionFormStylesAction = createAction(
 
 export const setDropSectionListItemStylesAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_LIST_ITEM_STYLES,
-    props<{ obj : any }>()
+    props<{ dragDropListItem: DragDropListItem }>()
 );
+
 export const loadDropSectionListItemStylesAction = createAction(
-    FormBuilderActionTypes.LOAD_FORM_BUILDER_LIST_ITEM_STYLES,
-    props<{ obj: any }>()
+    FormBuilderActionTypes.LOAD_FORM_BUILDER_LIST_ITEM_STYLES
 );

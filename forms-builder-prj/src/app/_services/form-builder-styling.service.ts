@@ -33,7 +33,8 @@ export class FormBuilderStylingService {
     }
 
     constructor() {
-        this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyle>(new FormBuilderFormStyle());
+        this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyle>
+            (new FormBuilderFormStyle());
         this._currentFormBuilderFormStyles$ = this.currentFormBuilderFormStylesSubject.asObservable();
     }
 
@@ -87,9 +88,12 @@ export class FormBuilderStylingService {
                 }
             }
         }
-        console.log(FormBuilderFormStyles);
+        console.log(this._errorMessages);
         this.currentFormBuilderFormStylesSubject.next(FormBuilderFormStyles);
-        // console.log(this._errorMessages);
+    }
+
+    public clearErrorMessage(): void {
+        this._errorMessages = [];
     }
 
     private appendPixels(propValue: string): string {

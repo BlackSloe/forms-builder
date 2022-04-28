@@ -9,11 +9,7 @@ export const selectFormBuilderFormStyles = createSelector(
     (state: FormBuilderStyleState) => state.formGeneralStyles
 );
 
-
-// const styleObj = {} as any;
-
-// for (const style of state.formGeneralStyles.styles) {
-//     styleObj[style.propName] = style.propValue;
-// }
-
-// return styleObj;
+export const selectDragDropListItem = createSelector(
+    selectFormBuilderState,
+    (state: FormBuilderStyleState) => state.listItemStyles
+);

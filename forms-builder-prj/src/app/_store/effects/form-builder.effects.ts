@@ -24,10 +24,11 @@ export class FormBuilderEffects {
                 return this.formBuilderStyleService.currentFormBuilderFormStyles$
                     .pipe(
                         map((styles: FormBuilderFormStyle) => {
-                            // console.log('1');
                             if (this.formBuilderStyleService.isStylesValid) {
                                 return setDropSectionStylesSuccessAction({ styleObj: styles });
                             }
+                            this.formBuilderStyleService.clearErrorMessage();
+
                             return setDropSectionStylesFailedAction({
                                 errorMessage: this.formBuilderStyleService.errorMessages.join(', ')
                             });

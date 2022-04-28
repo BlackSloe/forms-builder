@@ -1,25 +1,25 @@
-import { Component } from "@angular/core";
-import { DragDropListItemStyle } from "src/app/_models/drag-drop-list-item-style";
-import { DragDropListItem } from "src/app/_shared/abstract/drag-drop-list-item.abstract";
-import { IDragDropListItemComponent } from "src/app/_shared/interfaces/drag-drop-list-item-component.interface";
+import { Component } from '@angular/core';
+import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
+import { IDragDropListItemComponent } from 'src/app/_shared/interfaces/drag-drop-list-item-component.interface';
 
 @Component({
     selector: 'app-drag-drop-list-button-input',
     templateUrl: './drag-drop-list-item-button.component.html',
 })
 export class DragDropListItemButtonComponent implements IDragDropListItemComponent {
-    dragDropListItem: DragDropListItem;
-    
-    // public get _styles(): any {
-    //     if(!this.dragDropListItem.styles)
-    //         return {};
+    dragDropListItem: DragDropListItem = new DragDropListItem();
 
-    //     const styleObj = {} as any;
+    public get _styles(): any {
+        if (!this.dragDropListItem.styles) {
+            return {};
+        }
 
-    //     for (const style of this.dragDropListItem.styles) {
-    //         styleObj[style.propName] = style.propValue;
-    //     }
+        const styleObj = {} as any;
 
-    //     return styleObj;
-    // }
+        for (const style of this.dragDropListItem.styles) {
+            styleObj[style.propName] = style.propValue;
+        }
+        // console.log(styleObj);
+        return styleObj;
+    }
 };

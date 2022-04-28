@@ -1,5 +1,5 @@
-import { DragDropListItem } from "../abstract/drag-drop-list-item.abstract";
+import { DragDropListItem } from '../abstract/drag-drop-list-item.abstract';
 
-export interface IDragDropListItemComponent {
+export class IDragDropListItemComponent {
     dragDropListItem: DragDropListItem;
 };

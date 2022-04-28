@@ -2,11 +2,19 @@ import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { finalize, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AccordionTabs as Tabs } from 'src/app/_enums/accordion-tabs';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
-import { loadDropSectionFormStylesAction, loadDropSectionListItemStylesAction, setDropSectionStylesAction } from 'src/app/_store/actions/form-builder.actions';
+import { FormBuilderFormStyleProperty } from 'src/app/_models/form-builder-form-style-property';
+import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
+import {
+  loadDropSectionFormStylesAction,
+  loadDropSectionListItemStylesAction,
+  setDropSectionListItemStylesAction,
+  setDropSectionStylesAction
+} from 'src/app/_store/actions/form-builder.actions';
 import { AppState } from 'src/app/_store/app.states';
-import { selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
+import { selectDragDropListItem, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
 
 @Component({
   selector: 'app-accordion',
@@ -14,61 +22,97 @@ import { selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-build
   styleUrls: ['./accordion.component.css']
 })
 export class AccordionComponent implements OnInit {
-  public tabs: string[] = ['Form General Styling', 'Field Styling'];
-  public generalFormStyle$!: Observable<FormBuilderFormStyle>;
-  public formBuilderStyles: FormBuilderFormStyle;
+  public dragDropFormBuilderStyle$: Observable<FormBuilderFormStyle>;
+  public dragDropListItemStyle$: Observable<DragDropListItem>;
 
-  expandedIndex = 0;
+  public tabs: string[] = [Tabs.FORM_GENERAL_STYILING, Tabs.FIELD_STYILING];
 
-  dropSectionStylingForm: FormGroup;
+  public selectedTab: string;
+
+  public expandedIndex = 0;
+
+  public dragDropFormGroup: FormGroup;
+  public dragDropListItemFormGroup: FormGroup;
 
   constructor(private store: Store<AppState>,
-    private formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder) {
+  }
 
-    
-    // console.log(this.dropSectionStylingForm);
-    
+  public get currentFormGroup(): FormGroup {
+    return this.selectedTab === Tabs.FORM_GENERAL_STYILING ?
+      this.dragDropFormGroup : this.dragDropListItemFormGroup
+  }
+
+  public get currentStyles$(): Observable<FormBuilderFormStyle> | Observable<DragDropListItem> {
+    return this.selectedTab === Tabs.FORM_GENERAL_STYILING ?
+      this.dragDropFormBuilderStyle$ : this.dragDropListItemStyle$;
   }
 
   ngOnInit(): void {
-    this.generalFormStyle$ = this.store.select(selectFormBuilderFormStyles);
+    this.dragDropFormBuilderStyle$ = this.store.select(selectFormBuilderFormStyles);
 
-    this.generalFormStyle$.subscribe(formStyles => {
-      const obj: any = {};
+    this.dragDropListItemStyle$ = this.store.select(selectDragDropListItem);
 
-      for (let style of formStyles.styles) {
-        obj[style.propName] = style.propValue;
-      }
+    this.dragDropListItemStyle$.subscribe(inputStyle => {
+      this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle.styles) });
+    });
 
-      this.dropSectionStylingForm = this.formBuilder.group({ ...obj });
+    this.dragDropFormBuilderStyle$.subscribe(formStyles => {
+      this.dragDropFormGroup = this.formBuilder.group({ ...this.mapModelToObject(formStyles.styles) });
     });
   }
 
-  public applyStyles(): void {
-    const styleModel: FormBuilderFormStyle = new FormBuilderFormStyle();
+  private mapModelToObject(styles: FormBuilderFormStyleProperty[]): any {
+    const stylesKeyValue: any = {};
 
-    for (const formPropName in this.dropSectionStylingForm.value) {
-      const formPropValue = this.dropSectionStylingForm.controls[formPropName].value;
-
-      const styleProp = styleModel.styles.find(styleProp => styleProp.propName === formPropName);
-
-      styleProp!.propValue = formPropValue;
+    for (const style of styles) {
+      stylesKeyValue[style.propName] = style.propValue;
     }
-
-    this.store.dispatch(setDropSectionStylesAction({ styleObj: styleModel }));
+    return stylesKeyValue;
   }
 
   public accordionItemClick(accordionItem: CdkAccordionItem, tab: string): void {
-    if (tab === this.tabs[0]) {
+    if (tab === Tabs.FORM_GENERAL_STYILING) {
       this.store.dispatch(loadDropSectionFormStylesAction());
-      accordionItem.toggle();
     }
-    // if (tab === this.tabs[1] && this.item != null) {
-    //   this.store.dispatch(loadDropSectionListItemStylesAction({ item }))
-    // }
+
+    if (tab === Tabs.FIELD_STYILING ) {
+      this.store.dispatch(loadDropSectionListItemStylesAction());
+    }
+
+    this.selectedTab = tab;
+
+    accordionItem.toggle();
   }
 
   public onFormSubmit(form: FormGroup): void {
-    this.applyStyles();
+    // console.log(this.selectedTab);
+    if (this.selectedTab === Tabs.FORM_GENERAL_STYILING) {
+      const styleModel: FormBuilderFormStyle = new FormBuilderFormStyle();
+
+      this.setStyles(styleModel.styles, form);
+
+      console.log(styleModel);
+
+      this.store.dispatch(setDropSectionStylesAction({ styleObj: styleModel }));
+    } else if (this.selectedTab === Tabs.FIELD_STYILING) {
+      const styleModel: DragDropListItem = new DragDropListItem();
+
+      this.setStyles(styleModel.styles, form);
+
+      // console.log(styleModel);
+
+      this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: styleModel }));
+    }
+  }
+
+  private setStyles(styles: FormBuilderFormStyleProperty[], form: FormGroup): void {
+    for (const formPropName in form.value) {
+      const formPropValue = form.controls[formPropName].value;
+
+      const styleProp = styles.find(styleProp => styleProp.propName === formPropName);
+
+      styleProp!.propValue = formPropValue;
+    }
   }
 }

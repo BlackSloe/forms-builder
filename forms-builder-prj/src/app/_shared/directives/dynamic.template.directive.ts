@@ -1,13 +1,31 @@
-import { ViewContainerRef, Directive, Type } from '@angular/core';
+import { ViewContainerRef, Type, ViewChild, Component, Input,  AfterViewInit,  } from '@angular/core';
+import { IDragDropListItemComponent } from '../interfaces/drag-drop-list-item-component.interface';
 
-@Directive({
-    selector: "[dynamic-template]"
+@Component({
+    selector: 'dynamic-component',
+    template: '<ng-template #container></ng-template>'
 })
-export class DynamicTemplateDirective {
-    constructor(public viewContainerRef: ViewContainerRef) { }
-}
 
-export class DynamicTemplateListItemComponent {
-    constructor(public component: Type<any>, public data: any) {
+export class DynamicTemplateListItemComponent implements AfterViewInit {
+    @Input()
+    componentType: Type<any>;
+
+    public component: IDragDropListItemComponent;
+
+    @ViewChild('container', { static: false, read: ViewContainerRef })
+    container: ViewContainerRef;
+
+    constructor() {
+    }
+
+    ngAfterViewInit(): void {
+        const viewContainerRef = this.container;
+
+        viewContainerRef.clear();
+
+        const componentRef = viewContainerRef
+            .createComponent<IDragDropListItemComponent>(this.componentType);
+
+        this.component = componentRef.instance;
     }
 }

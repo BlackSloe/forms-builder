@@ -14,6 +14,7 @@ import { AccordionItemBodyComponent } from './form-builder/accordion/accordion-i
 import { SeparatorPipe } from 'src/app/_shared/pipes/input-field-separator.pipe';
 import { UnitAppenderPipe } from 'src/app/_shared/pipes/input-field-unit-appender.pipe';
 import { ReactiveComponentModule } from '@ngrx/component';
+import { DynamicTemplateListItemComponent } from 'src/app/_shared/directives/dynamic.template.directive';
 
 const material = [
   CdkAccordionModule,
@@ -30,14 +31,14 @@ const material = [
     DragSectionComponent,
     AccordionItemBodyComponent,
     SeparatorPipe,
-    UnitAppenderPipe
+    UnitAppenderPipe,
+    DynamicTemplateListItemComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     DragDropListItemModule,
     material,
-    
     ReactiveComponentModule
   ],
   exports: [

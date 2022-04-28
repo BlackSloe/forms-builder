@@ -14,7 +14,7 @@ export class UnitAppenderPipe implements PipeTransform {
         if (args.includes(ValidationRules.IS_MEASURED_IN_PIXELS)) {
             return value + ', px';
         }
-        
+
         if (args.includes(ValidationRules.IS_COLOR_VALUE)) {
             return value + ', hex/rgb/keyword';
         }
