@@ -34,6 +34,8 @@ export class AccordionComponent implements OnInit {
   public dragDropFormGroup: FormGroup;
   public dragDropListItemFormGroup: FormGroup;
 
+  public model: FormBuilderFormStyleProperty[] = [];
+
   constructor(private store: Store<AppState>,
     public formBuilder: FormBuilder) {
   }
@@ -54,7 +56,7 @@ export class AccordionComponent implements OnInit {
     this.dragDropListItemStyle$ = this.store.select(selectDragDropListItem);
 
     this.dragDropListItemStyle$.subscribe(inputStyle => {
-      this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle.styles) });
+      this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle?.styles)  });
     });
 
     this.dragDropFormBuilderStyle$.subscribe(formStyles => {
@@ -63,11 +65,19 @@ export class AccordionComponent implements OnInit {
   }
 
   private mapModelToObject(styles: FormBuilderFormStyleProperty[]): any {
+    if (!styles) {
+      return undefined;
+    }
+
     const stylesKeyValue: any = {};
 
     for (const style of styles) {
       stylesKeyValue[style.propName] = style.propValue;
     }
+
+    // for(const arg of args) {
+    //   stylesKeyValue[arg.propName] = arg.propValue
+    // }
     return stylesKeyValue;
   }
 
@@ -76,8 +86,12 @@ export class AccordionComponent implements OnInit {
       this.store.dispatch(loadDropSectionFormStylesAction());
     }
 
-    if (tab === Tabs.FIELD_STYILING ) {
+    if (tab === Tabs.FIELD_STYILING) {
       this.store.dispatch(loadDropSectionListItemStylesAction());
+
+      if (Object.keys(this.dragDropListItemFormGroup.controls).length === 0) {
+        return;
+      }
     }
 
     this.selectedTab = tab;
@@ -86,21 +100,16 @@ export class AccordionComponent implements OnInit {
   }
 
   public onFormSubmit(form: FormGroup): void {
-    // console.log(this.selectedTab);
     if (this.selectedTab === Tabs.FORM_GENERAL_STYILING) {
       const styleModel: FormBuilderFormStyle = new FormBuilderFormStyle();
 
       this.setStyles(styleModel.styles, form);
-
-      console.log(styleModel);
 
       this.store.dispatch(setDropSectionStylesAction({ styleObj: styleModel }));
     } else if (this.selectedTab === Tabs.FIELD_STYILING) {
       const styleModel: DragDropListItem = new DragDropListItem();
 
       this.setStyles(styleModel.styles, form);
-
-      // console.log(styleModel);
 
       this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: styleModel }));
     }

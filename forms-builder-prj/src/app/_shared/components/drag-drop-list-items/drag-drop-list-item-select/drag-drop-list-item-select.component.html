@@ -1,8 +1,8 @@
 <mat-form-field [ngStyle]="_styles">
-    <mat-label>{{ dragDropListItem?.placeHolderText ? dragDropListItem?.placeHolderText : 'Default Text' }}</mat-label>
+    <mat-label>{{ dragDropListItem?.placeHolderText.propValue ? dragDropListItem?.placeHolderText.propValue : 'Default Text' }}</mat-label>
     <mat-select>
-        <mat-option>Select one</mat-option>
-        <mat-option>Select two</mat-option>
-        <mat-option>Select three</mat-option>
+        <mat-option value="selectOne">Select one</mat-option>
+        <mat-option value="selectTwo">Select two</mat-option>
+        <mat-option value="selectThree">Select three</mat-option>
       </mat-select>
 </mat-form-field>

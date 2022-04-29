@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
 import {
+    clearDropSectionListItemStylesAction,
     loadDropSectionFormStylesAction,
     setDropSectionListItemStylesAction,
     setDropSectionStylesAction,
@@ -11,13 +12,13 @@ import {
 
 export interface FormBuilderStyleState {
     formGeneralStyles: FormBuilderFormStyle;
-    listItemStyles: DragDropListItem;
+    listItemStyles: DragDropListItem | null;
     errorMessage: string | null;
 };
 
 export const initialState: FormBuilderStyleState = {
     formGeneralStyles: new FormBuilderFormStyle(),
-    listItemStyles: new DragDropListItem(),
+    listItemStyles: null,
     errorMessage: null
 };
 
@@ -44,6 +45,10 @@ const _formBuilderReducer = createReducer(
     on(setDropSectionListItemStylesAction, (state, action) => ({
         ...state,
         listItemStyles: action.dragDropListItem
+    })),
+    on(clearDropSectionListItemStylesAction, (state) => ({
+        ...state,
+        listItemStyles: null
     }))
 
 );

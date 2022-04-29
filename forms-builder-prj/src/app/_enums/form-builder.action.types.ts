@@ -4,5 +4,6 @@ export enum FormBuilderActionTypes {
     SET_FORM_BUILDER_FALIED_STYLES = '[Form-Builder] Set Styles Failded',
     LOAD_FORM_BUILDER_FORM_STYLES = '[Form-Builder] Load Form Styles',
     SET_FORM_BUILDER_LIST_ITEM_STYLES = '[Form-Builder] Set Form Styles',
-    LOAD_FORM_BUILDER_LIST_ITEM_STYLES = '[Form-Builder] Load List Item Styles'
+    LOAD_FORM_BUILDER_LIST_ITEM_STYLES = '[Form-Builder] Load List Item Styles',
+    CLEAR_FORM_BUILDER_LIST_ITEM_STYLES = '[Form-Builder] Clear List Item Styles'
 };

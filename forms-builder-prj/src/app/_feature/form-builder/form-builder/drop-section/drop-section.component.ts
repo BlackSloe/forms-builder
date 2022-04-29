@@ -9,6 +9,7 @@ import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.a
 import { DynamicTemplateListItemComponent } from 'src/app/_shared/directives/dynamic.template.directive';
 import { IDragDropListItemComponent } from 'src/app/_shared/interfaces/drag-drop-list-item-component.interface';
 import { DragDropItemComponentType } from 'src/app/_models/drag-drop-item-component-type';
+import { setDropSectionListItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 
 @Component({
   selector: 'app-drop-section',
@@ -39,12 +40,14 @@ export class DropSectionComponent implements OnInit, OnChanges {
     this.store.select(selectDragDropListItem).subscribe(styles => {
       if (this.selectedIndex !== - 1) {
 
-        this.dynamicComponents.forEach((item, index) => {
-          if (this.selectedIndex === index) {
-            item.component.dragDropListItem = styles;
-          }
+        if (this.dynamicComponents) {
+          this.dynamicComponents.forEach((item, index) => {
+            if (this.selectedIndex === index) {
+              item.component.dragDropListItem = styles!;
+            }
 
-        })
+          })
+        }
       }
     });
 
@@ -61,6 +64,7 @@ export class DropSectionComponent implements OnInit, OnChanges {
   }
 
   public drop(event: CdkDragDrop<any[]>): void {
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -70,17 +74,26 @@ export class DropSectionComponent implements OnInit, OnChanges {
         event.previousIndex,
         event.currentIndex,
       );
-    }
-    this.selectedIndex = event.currentIndex;
-  }
+      this.selectedIndex = event.currentIndex;
 
+      this.dynamicComponents.changes.subscribe(() => {
+        this.dynamicComponents.forEach((item, index) => {
+          if (this.selectedIndex === index) {
+            this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: item.component.dragDropListItem }));
+          }
+        });
+      });
+    }
+  }
 
   public onItemClick(index: number): void {
     this.selectedIndex = index;
 
-    if (this.selectedIndex) {
-
-    }
+    this.dynamicComponents.forEach((item, index) => {
+      if (this.selectedIndex === index) {
+        this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: item.component.dragDropListItem }));
+      }
+    })
   }
 
   public onItemCloseClick(_arrIndex: number): void {

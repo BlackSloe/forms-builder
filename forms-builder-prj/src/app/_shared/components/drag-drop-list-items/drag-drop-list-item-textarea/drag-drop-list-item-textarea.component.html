@@ -1,4 +1,5 @@
 <mat-form-field [ngStyle]="_styles">
-    <mat-label>{{ dragDropListItem?.placeHolderText ? dragDropListItem?.placeHolderText : 'Default Text' }}</mat-label>
-    <input matInput cdkTextareaAutosize>
+    <mat-label>{{ dragDropListItem?.placeHolderText.propValue ? dragDropListItem?.placeHolderText.propValue : 'Default Text' }}</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
+    </textarea>
 </mat-form-field>

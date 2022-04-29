@@ -4,9 +4,8 @@ import { FormBuilderFormStyleProperty } from 'src/app/_models/form-builder-form-
 
 export class DragDropListItem {
     styles: FormBuilderFormStyleProperty[] = [];
-    placeHolderText = 'Default Text';
+    placeHolderText: FormBuilderFormStyleProperty = new FormBuilderFormStyleProperty();
     height: FormBuilderFormStyleProperty = new FormBuilderFormStyleProperty();
-    required: FormBuilderFormStyleProperty = new FormBuilderFormStyleProperty();
 
     constructor() {
         this.height = {
@@ -15,10 +14,10 @@ export class DragDropListItem {
             validationRules: [ValidationRules.IS_MEASURED_IN_PIXELS, ValidationRules.NOT_NEGATIVE]
         };
 
-        this.required = {
-            propName: 'required',
-            propValue: 'true',
-            validationRules: [ValidationRules.IS_BOOLEAN]
+        this.placeHolderText = {
+            propName: 'placeHolderText',
+            propValue: '',
+            validationRules: []
         }
 
         this.styles = [

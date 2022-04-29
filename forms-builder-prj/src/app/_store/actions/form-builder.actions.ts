@@ -31,3 +31,7 @@ export const setDropSectionListItemStylesAction = createAction(
 export const loadDropSectionListItemStylesAction = createAction(
     FormBuilderActionTypes.LOAD_FORM_BUILDER_LIST_ITEM_STYLES
 );
+
+export const clearDropSectionListItemStylesAction = createAction(
+    FormBuilderActionTypes.CLEAR_FORM_BUILDER_LIST_ITEM_STYLES
+);
