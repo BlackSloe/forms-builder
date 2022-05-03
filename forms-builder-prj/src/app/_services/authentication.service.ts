@@ -18,21 +18,19 @@ export class AuthenticationService {
     public isLoggedin: boolean;
 
     constructor(private http: HttpClient, private store: Store<AppState>) {
-        let user = JSON.parse(sessionStorage.getItem('currentUser'));
-        if(user){
-            user = user[0];
-        }
-        console.log(user);
 
-        this.currentUserSubject = new BehaviorSubject<User>(user);
-        
+        let user = JSON.parse(localStorage?.getItem('currentUser'));
         // user = user ? user[0] : null;
 
-        // if (user?.id) {
-        //     this.isLoggedin = true;
-        //     this.store.dispatch(loginSuccessAction({ user: user}));
-        //     this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
-        // }
+        this.currentUserSubject = new BehaviorSubject<User>(user || '{}');
+        
+         user = user ? user[0] : null;
+
+        if (user?.id) {
+            this.isLoggedin = true;
+            // this.store.dispatch(loginSuccessAction({ user: user}));
+            // this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
+        }
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
@@ -46,9 +44,9 @@ export class AuthenticationService {
 
         return this.http.get<any>(uri)
             .pipe(map(user => {
-                sessionStorage.setItem('currentUser', JSON.stringify(user[0]));
+                localStorage.setItem('currentUser', JSON.stringify(user));
                 console.log(user[0]);
-                this.currentUserSubject.next(user[0]);
+                this.currentUserSubject.next(user);
                 return user;
         }));
     }
@@ -60,7 +58,7 @@ export class AuthenticationService {
     public logout() {
         this.isLoggedin = false;
 
-        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
 }

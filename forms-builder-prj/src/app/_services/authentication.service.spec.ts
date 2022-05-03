@@ -75,17 +75,19 @@ describe('authentication service', () => {
             req.flush(mockUser);
         });
 
-        describe('logout', () => {
-            it('should clear session storage', () => {
-                const sessionStorageSpy = spyOn(sessionStorage, 'removeItem');
-                const currentUserSpy = spyOn(service['currentUserSubject'], 'next');
+       
 
-                service.logout();
+    });
 
-                expect(sessionStorageSpy).toHaveBeenCalledWith('currentUser');
-                expect(currentUserSpy).toHaveBeenCalledWith(null);
-            });
+    describe('logout', () => {
+        it('should clear session storage', () => {
+            const sessionStorageSpy = spyOn(localStorage, 'removeItem');
+            const currentUserSpy = spyOn(service['currentUserSubject'], 'next');
+
+            service.logout();
+
+            expect(sessionStorageSpy).toHaveBeenCalledWith('currentUser');
+            expect(currentUserSpy).toHaveBeenCalledWith(null);
         });
-
     });
 });

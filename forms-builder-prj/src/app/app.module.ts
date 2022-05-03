@@ -51,7 +51,7 @@ const interceptors = [
     StoreModule.forFeature(formBuilderFeatureName, reducers.formBuilderReducer),
     NavbarModule
   ],
-  providers: [AuthenticationGuard, interceptors, ContentTypeInterceptor],
+  providers: [AuthenticationGuard, JwtInterceptor, ContentTypeInterceptor, interceptors],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
