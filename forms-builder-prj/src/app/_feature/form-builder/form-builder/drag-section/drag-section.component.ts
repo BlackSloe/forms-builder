@@ -30,9 +30,5 @@ export class DragSectionComponent implements OnInit {
 
   }
 
-  public drop(event: CdkDragDrop<any[]>): void {
-    if (event.previousContainer !== event.container) {
-
-    }
-  }
+ 
 }

@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../_store/app.states';
 import { loginAction, loginSuccessAction } from '../_store/actions/user.actions';
 import { selectAuthenticatedUser } from '../_store/selectors/authentication.selectors';
-import { JWTMockService } from './jwt.mock.service';
+// import { JWTMockService } from './jwt.mock.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -17,18 +17,22 @@ export class AuthenticationService {
     public currentUser$: Observable<User>;
     public isLoggedin: boolean;
 
-    constructor(private http: HttpClient, private store: Store<AppState>, private jwtMockService: JWTMockService) {
+    constructor(private http: HttpClient, private store: Store<AppState>) {
         let user = JSON.parse(sessionStorage.getItem('currentUser'));
-        console.log(jwtMockService.createJWT('123', '213', 0));
-        this.currentUserSubject = new BehaviorSubject<User>(user || '{}');
-        
-        user = user ? user[0] : null;
-
-        if (user?.id) {
-            this.isLoggedin = true;
-            this.store.dispatch(loginSuccessAction({ user: user}));
-            this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
+        if(user){
+            user = user[0];
         }
+        console.log(user);
+
+        this.currentUserSubject = new BehaviorSubject<User>(user);
+        
+        // user = user ? user[0] : null;
+
+        // if (user?.id) {
+        //     this.isLoggedin = true;
+        //     this.store.dispatch(loginSuccessAction({ user: user}));
+        //     this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
+        // }
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
@@ -42,8 +46,9 @@ export class AuthenticationService {
 
         return this.http.get<any>(uri)
             .pipe(map(user => {
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
+                sessionStorage.setItem('currentUser', JSON.stringify(user[0]));
+                console.log(user[0]);
+                this.currentUserSubject.next(user[0]);
                 return user;
         }));
     }

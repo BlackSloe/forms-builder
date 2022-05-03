@@ -29,14 +29,14 @@ export class NavbarComponent implements OnInit {
     this.store.select(selectIsUserAuthenticated)
       .subscribe(isAuthenticated => {
         this.isAuthenticated = isAuthenticated;
-        console.log(isAuthenticated);
+        // console.log(isAuthenticated);
       });
 
     this.store.select(selectAuthenticatedUser)
       .subscribe(user => {
         if (user) {
           this._userName = user.userName;
-          console.log(user);
+          // console.log(user);
         }
       });
   }

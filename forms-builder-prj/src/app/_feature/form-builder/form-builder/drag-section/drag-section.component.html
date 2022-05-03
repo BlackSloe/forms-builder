@@ -1,5 +1,5 @@
 <div class="drag-container">
-    <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="dragSectionItems" (cdkDropListDropped)="drop($event)"
+    <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="dragSectionItems" 
         cdkDropListConnectedTo="drop-list" id="drag-list" class="drag-list">
 
         <div *ngFor="let dragSectionItem of dragSectionItems; let index = index" class="drag-box" cdkDrag>

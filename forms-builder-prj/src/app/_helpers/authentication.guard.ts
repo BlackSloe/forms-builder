@@ -10,11 +10,11 @@ export class AuthenticationGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (!this.authenticationService.isLoggedin) {
-            return false;
+        if (this.authenticationService.isLoggedin) {
+            return true;
         }
 
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-        return true;
+        return false;
     }
 }

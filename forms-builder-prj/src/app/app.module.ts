@@ -18,6 +18,19 @@ import { FormBuilderEffects } from './_store/effects/form-builder.effects';
 import { MatSelectModule } from '@angular/material/select';
 import { SeparatorPipe } from './_shared/pipes/input-field-separator.pipe';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ContentTypeInterceptor } from './_helpers/content-type.interceptor';
+
+const interceptors = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ContentTypeInterceptor,
+    multi: true
+  }];
 
 @NgModule({
   declarations: [
@@ -38,12 +51,7 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     StoreModule.forFeature(formBuilderFeatureName, reducers.formBuilderReducer),
     NavbarModule
   ],
-  providers: [AuthenticationGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    }],
+  providers: [AuthenticationGuard, interceptors, ContentTypeInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
