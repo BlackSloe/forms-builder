@@ -4,6 +4,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User } from 'src/app/_models/user';
 import {
+  loadUser,
   loginAction, loginFailedAction, loginSuccessAction, logoutAction, signUpAction, signUpSuccessAction
 } from '../actions/user.actions';
 
@@ -30,7 +31,7 @@ export class AuthenticationEffects {
       })
     )
   });
-
+  
   signUp$ = createEffect(() => {
     return this.actions.pipe(
       ofType(signUpAction),

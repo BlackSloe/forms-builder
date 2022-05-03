@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { Observable } from 'rxjs';
-import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
+import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
 
 @Component({
   selector: 'app-accordion-item-body',

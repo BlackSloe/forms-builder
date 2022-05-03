@@ -3,7 +3,7 @@ import { AppState } from 'src/app/_store/app.states';
 import { Store } from '@ngrx/store';
 import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { Router } from '@angular/router';
-import { logoutAction } from 'src/app/_store/actions/user.actions';
+import { loadUser, logoutAction } from 'src/app/_store/actions/user.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -24,15 +24,19 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(loadUser());
+    
     this.store.select(selectIsUserAuthenticated)
       .subscribe(isAuthenticated => {
         this.isAuthenticated = isAuthenticated;
+        console.log(isAuthenticated);
       });
 
     this.store.select(selectAuthenticatedUser)
       .subscribe(user => {
         if (user) {
           this._userName = user.userName;
+          console.log(user);
         }
       });
   }

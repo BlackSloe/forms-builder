@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
 import { FormBuilderFormStyle } from '../_models/form-builder-form-style';
+import { DragDropListItem } from '../_models/drag-drop-list-item.abstract';
+import { IStyles } from '../_shared/interfaces/styles.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderStylingService {
     private currentFormBuilderFormStylesSubject: BehaviorSubject<FormBuilderFormStyle>;
     private _currentFormBuilderFormStyles$: Observable<FormBuilderFormStyle>;
 
-    private _isValid = true;
+    private currentDragDropListItemStylesSubject: BehaviorSubject<FormBuilderFormStyle>;
+    private _currentDragDropListItemStyles$: Observable<FormBuilderFormStyle>;
+
     private _errorMessages: string[] = [];
 
     private readonly borderStyles = [
@@ -24,8 +28,8 @@ export class FormBuilderStylingService {
         'hidden'
     ];
 
-    public get isStylesValid(): boolean {
-        return this._isValid;
+    public isStylesValid(styles: IStyles): boolean {
+        return this.validateStyles(styles);
     }
 
     public get errorMessages(): string[] {
@@ -36,51 +40,74 @@ export class FormBuilderStylingService {
         this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyle>
             (new FormBuilderFormStyle());
         this._currentFormBuilderFormStyles$ = this.currentFormBuilderFormStylesSubject.asObservable();
+
+        this.currentDragDropListItemStylesSubject = new BehaviorSubject<FormBuilderFormStyle>
+            (new FormBuilderFormStyle());
+        this._currentDragDropListItemStyles$ = this.currentDragDropListItemStylesSubject.asObservable();
     }
 
     public get currentFormBuilderFormStyles$(): Observable<FormBuilderFormStyle> {
         return this._currentFormBuilderFormStyles$;
     }
 
-    public newStyle(value: FormBuilderFormStyle): void {
+    public get currentDragDropListItemStyles$(): Observable<FormBuilderFormStyle> {
+        return this._currentDragDropListItemStyles$;
+    }
+
+    public setFormBuilderStyles(value: FormBuilderFormStyle): void {
         this.currentFormBuilderFormStylesSubject.next(value);
     }
 
-    public validateStyles(): void {
-        const FormBuilderFormStyles: FormBuilderFormStyle =
-            JSON.parse(JSON.stringify(this.currentFormBuilderFormStylesSubject.value));
+    public setDragDropListItemStyles(value: DragDropListItem): void {
+        this.currentDragDropListItemStylesSubject.next(value);
+    }
 
-        for (const style of FormBuilderFormStyles.styles) {
+    private validateStyles(style: IStyles): boolean {
+        let isValid = true;
+        let testVal;
+
+        if (style instanceof FormBuilderFormStyle) {
+            testVal = JSON.parse(JSON.stringify(this.currentFormBuilderFormStylesSubject.value)) as FormBuilderFormStyle;
+        }
+        else {
+            testVal = JSON.parse(JSON.stringify(this.currentDragDropListItemStylesSubject.value)) as DragDropListItem;
+        }
+
+        for (const style of testVal.styles) {
             for (const validationRule of style.validationRules) {
 
                 switch (validationRule) {
                     case FormBuilderStylePropertyValidationRules.IS_MEASURED_IN_PIXELS: {
+                        if (style?.propValue.endsWith('px')) {
+                            break;
+                        }
+
                         if (this.isDigit(style.propValue)) {
                             style.propValue = this.appendPixels(style.propValue);
                         } else {
                             this._errorMessages.push(`${style.propName} is not digit`);
-                            this._isValid = false;
+                            isValid = false;
                         }
                     } break;
 
                     case FormBuilderStylePropertyValidationRules.IS_COLOR_VALUE: {
                         if (!this.isColorValue(style.propValue)) {
                             this._errorMessages.push(`${style.propName} is not color value`);
-                            this._isValid = false;
+                            isValid = false;
                         }
                     } break;
 
                     case FormBuilderStylePropertyValidationRules.IS_BORDER_STYLE_VALUE: {
                         if (!this.isBorderStyleValue(style.propValue)) {
                             this._errorMessages.push(`${style.propName} is not border style value`);
-                            this._isValid = false;
+                            isValid = false;
                         }
                     } break;
 
                     case FormBuilderStylePropertyValidationRules.NOT_NEGATIVE: {
                         if (this.isNegative(style?.propValue)) {
                             this._errorMessages.push(`${style.propName} should not be negative value`);
-                            this._isValid = false;
+                            isValid = false;
                         }
                     } break;
 
@@ -88,8 +115,14 @@ export class FormBuilderStylingService {
                 }
             }
         }
-        console.log(this._errorMessages);
-        this.currentFormBuilderFormStylesSubject.next(FormBuilderFormStyles);
+        if (style instanceof FormBuilderFormStyle) {
+            this.currentFormBuilderFormStylesSubject.next(testVal);
+        }
+        else {
+            this.currentDragDropListItemStylesSubject.next(testVal);
+        }
+
+        return isValid;
     }
 
     public clearErrorMessage(): void {

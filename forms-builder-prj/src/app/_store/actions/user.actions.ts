@@ -29,4 +29,8 @@ export const signUpSuccessAction = createAction(
 
 export const logoutAction = createAction(
     AuthenticationActionTypes.LOGOUT
-)
+);
+
+export const loadUser = createAction(
+    AuthenticationActionTypes.LOAD_USER
+);

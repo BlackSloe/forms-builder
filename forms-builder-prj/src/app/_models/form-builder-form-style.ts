@@ -1,9 +1,10 @@
 import {
     FormBuilderStylePropertyValidationRules as ValidationRules
 } from '../_enums/form-builder-style-property-validation-rules';
+import { IStyles } from '../_shared/interfaces/styles.interface';
 import { FormBuilderFormStyleProperty } from './form-builder-form-style-property';
 
-export class FormBuilderFormStyle {
+export class FormBuilderFormStyle implements IStyles {
     public styles: FormBuilderFormStyleProperty[] = [];
 
     constructor() {

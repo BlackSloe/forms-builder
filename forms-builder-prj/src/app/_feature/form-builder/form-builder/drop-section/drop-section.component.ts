@@ -1,12 +1,12 @@
 import { CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnChanges, OnInit, QueryList, Type, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit, QueryList, Type, ViewChild, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, skip, take } from 'rxjs';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { AppState } from 'src/app/_store/app.states';
 import { selectDragDropListItem, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
-import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
-import { DynamicTemplateListItemComponent } from 'src/app/_shared/directives/dynamic.template.directive';
+import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
+import { DynamicListItemComponent } from 'src/app/_shared/directives/dynamic-list-item.component';
 import { IDragDropListItemComponent } from 'src/app/_shared/interfaces/drag-drop-list-item-component.interface';
 import { DragDropItemComponentType } from 'src/app/_models/drag-drop-item-component-type';
 import { setDropSectionListItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
@@ -17,17 +17,18 @@ import { setDropSectionListItemStylesAction } from 'src/app/_store/actions/form-
   styleUrls: ['./drop-section.component.css']
 })
 export class DropSectionComponent implements OnInit, OnChanges {
-  @ViewChildren(DynamicTemplateListItemComponent)
-  dynamicComponents: QueryList<DynamicTemplateListItemComponent>;
+  @ViewChildren(DynamicListItemComponent)
+  dynamicComponents: QueryList<DynamicListItemComponent>;
 
   public selectedIndex: number;
 
-  public dragSectionItems: DragDropItemComponentType[] = [];
+  public dragSectionItems: Array<DragDropItemComponentType> = [];
 
 
-  public styles$: Observable<FormBuilderFormStyle>;
-  public dropListItem$: Observable<DragDropListItem>;
+  // public styles$: Observable<FormBuilderFormStyle>;
   public styles: any;
+
+  public dropListItem$: Observable<DragDropListItem>;
 
   constructor(private store: Store<AppState>) {}
 
@@ -35,7 +36,14 @@ export class DropSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.styles$ = this.store.select(selectFormBuilderFormStyles);
+    this.store.select(selectFormBuilderFormStyles).subscribe(formStyle => {
+      const obj: any = {};
+
+      for (const style of formStyle.styles) {
+        obj[style.propName] = style.propValue;
+      }
+      this.styles = obj;
+    });;
 
     this.store.select(selectDragDropListItem).subscribe(styles => {
       if (this.selectedIndex !== - 1) {
@@ -50,17 +58,6 @@ export class DropSectionComponent implements OnInit, OnChanges {
         }
       }
     });
-
-    this.styles$.subscribe(formStyle => {
-      console.log((formStyle));
-      const obj: any = {};
-
-      for (const style of formStyle.styles) {
-        obj[style.propName] = style.propValue;
-      }
-      this.styles = obj;
-      console.log(this.styles);
-    });
   }
 
   public drop(event: CdkDragDrop<any[]>): void {
@@ -74,6 +71,7 @@ export class DropSectionComponent implements OnInit, OnChanges {
         event.previousIndex,
         event.currentIndex,
       );
+      
       this.selectedIndex = event.currentIndex;
 
       this.dynamicComponents.changes.subscribe(() => {

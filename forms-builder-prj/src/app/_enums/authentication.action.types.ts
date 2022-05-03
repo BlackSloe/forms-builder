@@ -4,5 +4,6 @@ export enum AuthenticationActionTypes {
     LOGIN_FAILED = '[Auth] Login Failed',
     SIGNUP = '[Auth] Signup',
     SIGNUP_SUCCESS = '[Auth] Signup Success',
-    LOGOUT = '[Auth] Logout'
+    LOGOUT = '[Auth] Logout',
+    LOAD_USER = '[Auth] Load User'
 };

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import { NavbarModule } from './_core/navbar/navbar.module';
 import { FormBuilderEffects } from './_store/effects/form-builder.effects';
 import { MatSelectModule } from '@angular/material/select';
 import { SeparatorPipe } from './_shared/pipes/input-field-separator.pipe';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,12 +33,17 @@ import { SeparatorPipe } from './_shared/pipes/input-field-separator.pipe';
     AppRoutingModule,
     AuthenticationModule,
     EffectsModule.forRoot([FormBuilderEffects, AuthenticationEffects]),
-    StoreModule.forRoot(reducers, { }),
+    StoreModule.forRoot(reducers),
     StoreModule.forFeature(authenticationFeatureName, reducers.authenticationReducer),
     StoreModule.forFeature(formBuilderFeatureName, reducers.formBuilderReducer),
     NavbarModule
   ],
-  providers: [AuthenticationGuard],
+  providers: [AuthenticationGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
-import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
+import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
 import {
     clearDropSectionListItemStylesAction,
     loadDropSectionFormStylesAction,
@@ -34,9 +34,9 @@ const _formBuilderReducer = createReducer(
        formGeneralStyles: action.styleObj,
        errorMessage: null
     })),
-    on(setDropSectionStylesFailedAction, (state) => ({
+    on(setDropSectionStylesFailedAction, (state, action) => ({
         ...state,
-        errorMessage: state.errorMessage
+        errorMessage: action.errorMessage
     })),
     on(loadDropSectionFormStylesAction, (state) => ({ //add success and failed
         ...state,
@@ -50,7 +50,6 @@ const _formBuilderReducer = createReducer(
         ...state,
         listItemStyles: null
     }))
-
 );
 
 export function formBuilderReducer(state: any, action: any) {

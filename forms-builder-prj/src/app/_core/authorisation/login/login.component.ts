@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
     });
 
     this.store.select(selectIsUserAuthenticated).subscribe(isAuthenticated => {
-      // console.log(isAuthenticated);
       if (isAuthenticated) {
         this.router.navigate(['/homepage']);
       }
@@ -41,8 +40,6 @@ export class LoginComponent implements OnInit {
     if (userName === '' || password === '') {
       return;
     }
-    // console.log(userName);
-
     this.store.dispatch(loginAction({
       userName,
       password

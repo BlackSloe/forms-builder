@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable({ providedIn: 'root' })
@@ -10,15 +9,12 @@ export class AuthenticationGuard implements CanActivate {
         private authenticationService: AuthenticationService
     ) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const currentUser = this.authenticationService.currentUserValue;
-        console.log(currentUser);
-
-        if (currentUser[0]?.id) {
-            return true;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (!this.authenticationService.isLoggedin) {
+            return false;
         }
 
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-        return false;
+        return true;
     }
 }

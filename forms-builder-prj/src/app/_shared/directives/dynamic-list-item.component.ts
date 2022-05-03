@@ -6,7 +6,7 @@ import { IDragDropListItemComponent } from '../interfaces/drag-drop-list-item-co
     template: '<ng-template #container></ng-template>'
 })
 
-export class DynamicTemplateListItemComponent implements AfterViewInit {
+export class DynamicListItemComponent implements AfterViewInit {
     @Input()
     componentType: Type<any>;
 

@@ -5,17 +5,30 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
+import { Store } from '@ngrx/store';
+import { AppState } from '../_store/app.states';
+import { loginAction, loginSuccessAction } from '../_store/actions/user.actions';
+import { selectAuthenticatedUser } from '../_store/selectors/authentication.selectors';
+import { JWTMockService } from './jwt.mock.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser$: Observable<User>;
+    public isLoggedin: boolean;
 
-    constructor(private http: HttpClient) {
-        // this.logout();
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject = new BehaviorSubject<User>(
-            JSON.parse(localStorage.getItem('currentUser') || '{}'));
+    constructor(private http: HttpClient, private store: Store<AppState>, private jwtMockService: JWTMockService) {
+        let user = JSON.parse(sessionStorage.getItem('currentUser'));
+        console.log(jwtMockService.createJWT('123', '213', 0));
+        this.currentUserSubject = new BehaviorSubject<User>(user || '{}');
+        
+        user = user ? user[0] : null;
+
+        if (user?.id) {
+            this.isLoggedin = true;
+            this.store.dispatch(loginSuccessAction({ user: user}));
+            this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
+        }
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
@@ -25,10 +38,11 @@ export class AuthenticationService {
 
     public login(userName: string, password: string): Observable<any> {
         const uri = `${environment.apiUrl}/users?userName=${userName}&password=${password}`;
-        // console.log('login');
+        this.isLoggedin = true;
+
         return this.http.get<any>(uri)
             .pipe(map(user => {
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
                 return user;
         }));
@@ -39,7 +53,9 @@ export class AuthenticationService {
     }
 
     public logout() {
-        localStorage.removeItem('currentUser');
+        this.isLoggedin = false;
+
+        sessionStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
 }

@@ -1,12 +1,12 @@
 import { CdkAccordionItem } from '@angular/cdk/accordion';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AccordionTabs as Tabs } from 'src/app/_enums/accordion-tabs';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderFormStyleProperty } from 'src/app/_models/form-builder-form-style-property';
-import { DragDropListItem } from 'src/app/_shared/abstract/drag-drop-list-item.abstract';
+import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
 import {
   loadDropSectionFormStylesAction,
   loadDropSectionListItemStylesAction,
@@ -19,7 +19,8 @@ import { selectDragDropListItem, selectFormBuilderFormStyles } from 'src/app/_st
 @Component({
   selector: 'app-accordion',
   templateUrl: './accordion.component.html',
-  styleUrls: ['./accordion.component.css']
+  styleUrls: ['./accordion.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccordionComponent implements OnInit {
   public dragDropFormBuilderStyle$: Observable<FormBuilderFormStyle>;
