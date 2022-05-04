@@ -6,22 +6,22 @@
                     <h1>Sign Up</h1>
                     <h5>Please enter your user name and password</h5>
                 </div>
-                <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+                <form [formGroup]="signupForm" (ngSubmit)="signUp()" cyid="signup-form">
                     <div class="mb-3">
                         <mat-form-field class="mat-form-field-container">
                             <mat-label>User name</mat-label>
-                            <input matInput required formControlName="userName" type="text" id="inputUserName">
+                            <input matInput required minlength="4" formControlName="userName" type="text" id="inputUserName" cyid="signup-form-user-name">
                         </mat-form-field>
                     </div>
                     <div class="mb-3">
                         <mat-form-field class="mat-form-field-container">
                             <mat-label>Password</mat-label>
-                            <input matInput required formControlName="password" type="text" id="inputPassword">
+                            <input matInput required minlength="4"  formControlName="password" type="text" id="inputPassword" cyid="signup-form-user-password">
                         </mat-form-field>
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary" cyid="signup-form-signup-btn">Sign Up</button>
                 </form>
-                <a routerLink="/login">Already sign upped? Login now!</a>
+                <a routerLink="/login" cyid="login-link">Already sign upped? Login now!</a>
             </div>
         </div>
     </div>

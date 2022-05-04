@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
     const userName = userPayload['userName'];
     const password = userPayload['password'];
 
-    if (userName === '' || password === '') {
+    if (userName.length < 4 || password < 4) {
       return;
     }
 
