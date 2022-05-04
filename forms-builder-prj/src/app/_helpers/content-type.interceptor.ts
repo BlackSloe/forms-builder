@@ -7,7 +7,6 @@ export class ContentTypeInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(123);
         return next.handle(request.clone({
             setHeaders: {
                 'Content-Type': 'application/json'

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { Observable } from 'rxjs';
-import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
+import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 
 @Component({
   selector: 'app-accordion-item-body',
@@ -15,7 +15,7 @@ export class AccordionItemBodyComponent implements OnInit {
   stylingFormGroup: FormGroup;
 
   @Input()
-  formBuilderStyles$: Observable<FormBuilderFormStyle> | Observable<DragDropListItem>;
+  formBuilderStyles$: Observable<FormBuilderFormStyle> | Observable<DraggableItemStyles>;
 
   @Output()
   styilingFormGroupEmitter: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
@@ -23,8 +23,6 @@ export class AccordionItemBodyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.formBuilderStyles$.subscribe(o => console.log(o));
-    // console.log(this.formBuilderStyles$);
   }
 
   public onFormSubmit(): void {

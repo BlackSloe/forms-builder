@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
+import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import {
     clearDropSectionListItemStylesAction,
@@ -31,7 +31,7 @@ describe('form-builder reducers', () => {
             const mockFormGeneralStyles = new FormBuilderFormStyle();
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesAction({ styleObj: mockFormGeneralStyles });
+            const createAction = setDropSectionStylesAction({ styles: mockFormGeneralStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -52,7 +52,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesSuccessAction({ styleObj: mockFormGeneralStyles });
+            const createAction = setDropSectionStylesSuccessAction({ styles: mockFormGeneralStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -91,7 +91,7 @@ describe('form-builder reducers', () => {
         });
 
         it('should setDropSectionListItemStyles action', () => {
-            const mockListItemStyles = new DragDropListItem();
+            const mockListItemStyles = new DraggableItemStyles();
 
             mockListItemStyles.styles.forEach((style) => {
                 style.propValue = 'Hello'
@@ -103,7 +103,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = setDropSectionListItemStylesAction({dragDropListItem: mockListItemStyles});
+            const createAction = setDropSectionListItemStylesAction({ styles: mockListItemStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -111,7 +111,7 @@ describe('form-builder reducers', () => {
         });
 
         it('should clearDropSectionListItemStyles action', () => {
-            const mockListItemStyles = new DragDropListItem();
+            const mockListItemStyles = new DraggableItemStyles();
             
             const expectedState = {
                 listItemStyles: null
@@ -119,7 +119,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            storeMock.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: mockListItemStyles }));
+            storeMock.dispatch(setDropSectionListItemStylesAction({ styles: mockListItemStyles }));
 
             const createAction = clearDropSectionListItemStylesAction();
 

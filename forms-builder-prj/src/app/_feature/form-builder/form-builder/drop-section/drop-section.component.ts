@@ -1,14 +1,13 @@
-import { CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, OnChanges, OnInit, QueryList, Type, ViewChild, ViewChildren } from '@angular/core';
+import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnChanges, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, skip, take } from 'rxjs';
-import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/_store/app.states';
-import { selectDragDropListItem, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
-import { DragDropListItem } from 'src/app/_models/drag-drop-list-item.abstract';
+import { selectDraggableItemStyles, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
+import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import { DynamicListItemComponent } from 'src/app/_shared/directives/dynamic-list-item.component';
-import { IDragDropListItemComponent } from 'src/app/_shared/interfaces/drag-drop-list-item-component.interface';
-import { DragDropItemComponentType } from 'src/app/_models/drag-drop-item-component-type';
+import { DraggableItemComponent } from 'src/app/_shared/components/draggable-item.component';
+import { DraggableItemComponentType } from 'src/app/_models/draggable-item-component-type';
 import { setDropSectionListItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 
 @Component({
@@ -22,13 +21,12 @@ export class DropSectionComponent implements OnInit, OnChanges {
 
   public selectedIndex: number;
 
-  public dragSectionItems: Array<DragDropItemComponentType> = [];
+  public dragSectionItems: Array<DraggableItemComponentType> = [];
 
 
-  // public styles$: Observable<FormBuilderFormStyle>;
   public styles: any;
 
-  public dropListItem$: Observable<DragDropListItem>;
+  public dropListItem$: Observable<DraggableItemStyles>;
 
   constructor(private store: Store<AppState>) {}
 
@@ -45,13 +43,13 @@ export class DropSectionComponent implements OnInit, OnChanges {
       this.styles = obj;
     });;
 
-    this.store.select(selectDragDropListItem).subscribe(styles => {
+    this.store.select(selectDraggableItemStyles).subscribe(styles => {
       if (this.selectedIndex !== - 1) {
 
         if (this.dynamicComponents) {
           this.dynamicComponents.forEach((item, index) => {
             if (this.selectedIndex === index) {
-              item.component.dragDropListItem = styles!;
+              item.component.draggableItemStyles = styles!;
             }
 
           })
@@ -77,7 +75,7 @@ export class DropSectionComponent implements OnInit, OnChanges {
       this.dynamicComponents.changes.subscribe(() => {
         this.dynamicComponents.forEach((item, index) => {
           if (this.selectedIndex === index) {
-            this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: item.component.dragDropListItem }));
+            this.store.dispatch(setDropSectionListItemStylesAction({ styles: item.component.draggableItemStyles }));
           }
         });
       });
@@ -89,7 +87,7 @@ export class DropSectionComponent implements OnInit, OnChanges {
 
     this.dynamicComponents.forEach((item, index) => {
       if (this.selectedIndex === index) {
-        this.store.dispatch(setDropSectionListItemStylesAction({ dragDropListItem: item.component.dragDropListItem }));
+        this.store.dispatch(setDropSectionListItemStylesAction({ styles: item.component.draggableItemStyles }));
       }
     })
   }

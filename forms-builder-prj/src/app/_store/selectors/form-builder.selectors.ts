@@ -9,7 +9,7 @@ export const selectFormBuilderFormStyles = createSelector(
     (state: FormBuilderStyleState) => state.formGeneralStyles
 );
 
-export const selectDragDropListItem = createSelector(
+export const selectDraggableItemStyles = createSelector(
     selectFormBuilderState,
     (state: FormBuilderStyleState) => state!.listItemStyles
 );

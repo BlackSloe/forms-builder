@@ -1,5 +1,5 @@
 import { ViewContainerRef, Type, ViewChild, Component, Input,  AfterViewInit,  } from '@angular/core';
-import { IDragDropListItemComponent } from '../interfaces/drag-drop-list-item-component.interface';
+import { DraggableItemComponent } from '../components/draggable-item.component';
 
 @Component({
     selector: 'dynamic-component',
@@ -10,7 +10,7 @@ export class DynamicListItemComponent implements AfterViewInit {
     @Input()
     componentType: Type<any>;
 
-    public component: IDragDropListItemComponent;
+    public component: DraggableItemComponent;
 
     @ViewChild('container', { static: false, read: ViewContainerRef })
     container: ViewContainerRef;
@@ -24,7 +24,7 @@ export class DynamicListItemComponent implements AfterViewInit {
         viewContainerRef.clear();
 
         const componentRef = viewContainerRef
-            .createComponent<IDragDropListItemComponent>(this.componentType);
+            .createComponent<DraggableItemComponent>(this.componentType);
 
         this.component = componentRef.instance;
     }

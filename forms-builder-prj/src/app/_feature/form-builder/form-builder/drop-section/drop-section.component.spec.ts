@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { DragDropItemComponentType } from 'src/app/_models/drag-drop-item-component-type';
+import { DraggableItemComponentType } from 'src/app/_models/draggable-item-component-type';
 import { DragDropListItemCheckboxComponent } from 'src/app/_shared/components/drag-drop-list-items/drag-drop-list-item-checkbox/drag-drop-list-item-checkbox.component';
 import { DynamicListItemComponent } from 'src/app/_shared/directives/dynamic-list-item.component';
 
@@ -35,7 +35,7 @@ describe('DropSectionComponent', () => {
 
   describe('onItemCloseClick', () => {
     it('should remove item from array', () => {
-      const mockComponents = [{} as DragDropItemComponentType, {} as DragDropItemComponentType, {} as DragDropItemComponentType]
+      const mockComponents = [{} as DraggableItemComponentType, {} as DraggableItemComponentType, {} as DraggableItemComponentType]
       component.dragSectionItems = mockComponents;
     
       component.onItemCloseClick(1);
@@ -46,7 +46,7 @@ describe('DropSectionComponent', () => {
 
   describe('onItemClick', () => {
     it('should select index of selected component in array', () => {
-      const mockComponents = [{} as DragDropItemComponentType, {} as DragDropItemComponentType, {} as DragDropItemComponentType]
+      const mockComponents = [{} as DraggableItemComponentType, {} as DraggableItemComponentType, {} as DraggableItemComponentType]
       component.dragSectionItems = mockComponents;
 
       component.onItemClick(1);

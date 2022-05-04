@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
 import { FormBuilderFormStyle } from '../_models/form-builder-form-style';
-import { DragDropListItem } from '../_models/drag-drop-list-item.abstract';
+import { DraggableItemStyles } from '../_models/draggable-item-styles';
 import { IStyles } from '../_shared/interfaces/styles.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -58,7 +58,7 @@ export class FormBuilderStylingService {
         this.currentFormBuilderFormStylesSubject.next(value);
     }
 
-    public setDragDropListItemStyles(value: DragDropListItem): void {
+    public setDragDropListItemStyles(value: DraggableItemStyles): void {
         this.currentDragDropListItemStylesSubject.next(value);
     }
 
@@ -70,7 +70,7 @@ export class FormBuilderStylingService {
             testVal = JSON.parse(JSON.stringify(this.currentFormBuilderFormStylesSubject.value)) as FormBuilderFormStyle;
         }
         else {
-            testVal = JSON.parse(JSON.stringify(this.currentDragDropListItemStylesSubject.value)) as DragDropListItem;
+            testVal = JSON.parse(JSON.stringify(this.currentDragDropListItemStylesSubject.value)) as DraggableItemStyles;
         }
 
         for (const style of testVal.styles) {
