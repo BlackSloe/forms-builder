@@ -21,9 +21,10 @@ export class AuthenticationEffects {
       switchMap((payLoad) => {
         return this.authService.login(payLoad.userName, payLoad.password)
           .pipe(
-            map((user: User[]) => {
-              if (user.length !== 0) {
-                return loginSuccessAction({ user: user[0] });
+            map((user: User) => {
+              console.log(user);
+              if (user) {
+                return loginSuccessAction({ user });
               }
               return loginFailedAction({ error: 'Failed to login. There is no such user' });
             })
@@ -36,7 +37,7 @@ export class AuthenticationEffects {
     return this.actions.pipe(
       ofType(signUpAction),
       switchMap((payLoad) => {
-        return this.authService.signUp(payLoad.userName, payLoad.password, payLoad.token)
+        return this.authService.signUp(payLoad.userName, payLoad.password)
           .pipe(
             map((user: User) => {
               return signUpSuccessAction({ token: user.token!, userName: user.userName! });

@@ -9,7 +9,7 @@
     {
       "userName": "qwerty",
       "password": "qwerty",
-      "token": "123token",
+      "token": "",
       "id": 2
     },
     {
@@ -41,6 +41,12 @@
       "password": "qqq",
       "token": "123token",
       "id": 8
+    },
+    {
+      "userName": "zadan",
+      "password": "zadan",
+      "token": "",
+      "id": 9
     }
   ]
 }

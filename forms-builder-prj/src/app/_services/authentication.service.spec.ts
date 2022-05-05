@@ -58,12 +58,12 @@ describe('authentication service', () => {
             const mockUser = {
                 userName: "test",
                 password: "test",
-                token: "123token",
+                token: '',
                 id: 999
             };
             const url = `http://localhost:3000/users`;
 
-            service.signUp(mockUser.userName, mockUser.password, mockUser.token)
+            service.signUp(mockUser.userName, mockUser.password)
                 .subscribe(user => {
                     expect(user).toEqual(mockUser);
                 });
