@@ -5,6 +5,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { User } from 'src/app/_models/user';
 import {
   loadUser,
+  loadUserFailed,
+  loadUserSuccessfully,
   loginAction, loginFailedAction, loginSuccessAction, logoutAction, signUpAction, signUpSuccessAction
 } from '../actions/user.actions';
 
@@ -56,4 +58,15 @@ export class AuthenticationEffects {
     )
   }, { dispatch: false });
 
+  loadUser$ = createEffect(() => {
+      return this.actions.pipe(
+        ofType(loadUser),
+        map(() => {
+            if (this.authService.isLoggedin) {
+                return loadUserSuccessfully({ user: this.authService.currentUserValue });
+            }
+            return loadUserFailed({ errorMessage: 'lol' });
+        })
+      );
+  })
 }

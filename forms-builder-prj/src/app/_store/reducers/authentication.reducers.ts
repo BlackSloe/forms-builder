@@ -2,6 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { User } from '../../_models/user';
 import {
     loadUser,
+    loadUserFailed,
+    loadUserSuccessfully,
     loginAction,
     loginFailedAction,
     loginSuccessAction,
@@ -62,6 +64,15 @@ const _authenticationReducer = createReducer(
     on(loadUser, (state) => ({
         ...state,
         user: state.user
+    })),
+    on(loadUserSuccessfully, (state, action) => ({
+        ...state,
+        user: action.user,
+        isAuthenticated: true
+    })),
+    on(loadUserFailed, (state, action) => ({
+        ...state,
+        errorMessage: action.errorMessage
     }))
 );
 

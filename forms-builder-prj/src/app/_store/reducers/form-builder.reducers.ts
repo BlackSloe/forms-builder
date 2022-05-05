@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
     clearDraggableItemStylesAction,
     loadDropSectionFormStylesAction,

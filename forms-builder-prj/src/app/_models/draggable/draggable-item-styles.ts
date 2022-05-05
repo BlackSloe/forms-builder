@@ -1,6 +1,6 @@
 import { FormBuilderStylePropertyValidationRules as ValidationRules} from 'src/app/_enums/form-builder-style-property-validation-rules';
 
-import { IStyles } from '../_shared/interfaces/styles.interface';
+import { IStyles } from 'src/app/_shared/interfaces/styles.interface';
 import { DraggableItemStyleProperty } from './draggable-item-style-property';
 
 
@@ -34,8 +34,8 @@ export class DraggableItemStyles implements IStyles {
                 inStyleArray: true
             },
             {
-                propName: 'placeHodlerText',
-                propValue: '',
+                propName: 'placeHolderText',
+                propValue: 'Default Text',
                 validationRules: [],
                 inStyleArray: false
             }

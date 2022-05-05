@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
 import { FormBuilderFormStyle } from '../_models/form-builder-form-style';
-import { DraggableItemStyles } from '../_models/draggable-item-styles';
+import { DraggableItemStyles } from '../_models/draggable/draggable-item-styles';
 import { IStyles } from '../_shared/interfaces/styles.interface';
 
 @Injectable({ providedIn: 'root' })

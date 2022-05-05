@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AccordionTabs as Tabs } from 'src/app/_enums/accordion-tabs';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderFormStyleProperty } from 'src/app/_models/form-builder-form-style-property';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
   loadDropSectionFormStylesAction,
   loadDraggableItemStylesAction,
@@ -57,7 +57,6 @@ export class AccordionComponent implements OnInit {
     this.dragDropListItemStyle$ = this.store.select(selectDraggableItemStyles);
 
     this.dragDropListItemStyle$.subscribe(inputStyle => {
-      console.log(inputStyle);
       this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle?.styles)  });
     });
 

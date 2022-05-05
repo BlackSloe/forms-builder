@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { Observable } from 'rxjs';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 
 @Component({
   selector: 'app-accordion-item-body',

@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_store/app.states';
-import { loginAction, loginSuccessAction } from '../_store/actions/user.actions';
-import { selectAuthenticatedUser } from '../_store/selectors/authentication.selectors';
-// import { JWTMockService } from './jwt.mock.service';
+import { loginSuccessAction } from '../_store/actions/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -18,18 +15,15 @@ export class AuthenticationService {
     public isLoggedin: boolean;
 
     constructor(private http: HttpClient, private store: Store<AppState>) {
-        let user = JSON.parse(localStorage?.getItem('currentUser'));
-        // console.log(user);
+        let user = JSON.parse(localStorage?.getItem('currentUser')) as User;
+        console.log(user);
 
-        this.currentUserSubject = new BehaviorSubject<User>(user || '{}');
+        this.currentUserSubject = new BehaviorSubject<User>(user);
+
+        this.isLoggedin = true;
+
+        this.store.dispatch(loginSuccessAction({ user }));
         
-         user = user ? user[0] : null;
-
-        if (user?.id) {
-            this.isLoggedin = true;
-            // this.store.dispatch(loginSuccessAction({ user: user}));
-            // this.store.select(selectAuthenticatedUser).subscribe(u => console.log(u));
-        }
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 

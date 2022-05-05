@@ -34,3 +34,13 @@ export const logoutAction = createAction(
 export const loadUser = createAction(
     AuthenticationActionTypes.LOAD_USER
 );
+
+export const loadUserSuccessfully = createAction(
+    AuthenticationActionTypes.LOAD_USER_SUCCESSFULLY,
+    props<{ user: User }>()
+);
+
+export const loadUserFailed = createAction(
+    AuthenticationActionTypes.LOAD_USER_FAILED,
+    props<{ errorMessage: string }>()
+);

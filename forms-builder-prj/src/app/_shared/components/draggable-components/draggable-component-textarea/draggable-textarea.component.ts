@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import { DraggableItemComponent } from 'src/app/_shared/components/draggable-item.component';
 
 @Component({
@@ -7,19 +6,15 @@ import { DraggableItemComponent } from 'src/app/_shared/components/draggable-ite
     templateUrl: './draggable-textarea.component.html',
 })
 export class DraggableTextareaComponent extends DraggableItemComponent {
-    // draggableItemStyles: DraggableItemStyles = new DraggableItemStyles();
+    constructor() {
+        super();
+    }
 
-    public get _styles(): any {
-        // if (!this.draggableItemStyles.styles) {
-        //     return {};
-        // }
+    public get styles(): any {
+        return this.getStylesAsKeyValue(this.draggableItemStyles);
+    }
 
-        // const styleObj = {} as any;
-
-        // for (const style of this.draggableItemStyles.styles) {
-        //     styleObj[style.propName] = style.propValue;
-        // }
-        // // console.log(styleObj);
-        return {};
+    public get placeHolderText(): string {
+        return super.getPlaceHolderText(this.draggableItemStyles); 
     }
 };

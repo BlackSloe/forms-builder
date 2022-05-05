@@ -1,10 +1,14 @@
-import { DraggableItemStyles } from '../../_models/draggable-item-styles';
+import { DraggableItemStyles } from '../../_models/draggable/draggable-item-styles';
 
 export class DraggableItemComponent {
-    draggableItemStyles: DraggableItemStyles = new DraggableItemStyles();
+    public draggableItemStyles: DraggableItemStyles;
+
+    constructor() {
+        this.draggableItemStyles = new DraggableItemStyles();
+    }
 
     public getStylesAsKeyValue(draggableItemStyles: DraggableItemStyles): any {
-        const styles = {};
+        let styles = {};
 
         for(const style of draggableItemStyles.styles) {
             if (style.inStyleArray) {
@@ -13,5 +17,9 @@ export class DraggableItemComponent {
         }
 
         return styles;
+    }
+
+    public getPlaceHolderText(draggableItemStyles: DraggableItemStyles): string {
+        return draggableItemStyles.styles.find((value) => value.propName === 'placeHolderText')?.propValue;
     }
 };

@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/_store/app.states';
 import { selectDraggableItemStyles, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import { DynamicListItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
 import { DraggableItemComponent } from 'src/app/_shared/components/draggable-item.component';
-import { DraggableItemComponentType } from 'src/app/_models/draggable-item-component-type';
+import { DraggableItemComponentType } from 'src/app/_models/draggable/draggable-item-component-type';
 import { setDraggableItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 
 @Component({
@@ -22,7 +22,6 @@ export class DropSectionComponent implements OnInit, OnChanges {
   public selectedIndex: number;
 
   public dragSectionItems: Array<DraggableItemComponentType> = [];
-
 
   public styles: any;
 
@@ -51,7 +50,6 @@ export class DropSectionComponent implements OnInit, OnChanges {
             if (this.selectedIndex === index) {
               item.component.draggableItemStyles = styles!;
             }
-
           })
         }
       }
@@ -59,7 +57,6 @@ export class DropSectionComponent implements OnInit, OnChanges {
   }
 
   public drop(event: CdkDragDrop<any[]>): void {
-    
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -86,8 +83,6 @@ export class DropSectionComponent implements OnInit, OnChanges {
     this.selectedIndex = index;
 
     this.dynamicComponents.forEach((item, index) => {
-      console.log(item);
-      
       if (this.selectedIndex === index) {
         this.store.dispatch(setDraggableItemStylesAction({ styles: item.component.draggableItemStyles }));
       }

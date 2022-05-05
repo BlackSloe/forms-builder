@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
     setSelectedDraggableItemStylesAction,
     setSelectedDraggableItemStylesSuccessAction,
