@@ -3,9 +3,9 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import {
-    clearDropSectionListItemStylesAction,
+    clearDraggableItemStylesAction,
     loadDropSectionFormStylesAction,
-    setDropSectionListItemStylesAction,
+    setDraggableItemStylesAction,
     setDropSectionStylesAction,
     setDropSectionStylesFailedAction,
     setDropSectionStylesSuccessAction
@@ -103,7 +103,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = setDropSectionListItemStylesAction({ styles: mockListItemStyles });
+            const createAction = setDraggableItemStylesAction({ styles: mockListItemStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -119,9 +119,9 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            storeMock.dispatch(setDropSectionListItemStylesAction({ styles: mockListItemStyles }));
+            storeMock.dispatch(setDraggableItemStylesAction({ styles: mockListItemStyles }));
 
-            const createAction = clearDropSectionListItemStylesAction();
+            const createAction = clearDraggableItemStylesAction();
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 

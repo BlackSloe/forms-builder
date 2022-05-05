@@ -9,8 +9,8 @@ import { FormBuilderFormStyleProperty } from 'src/app/_models/form-builder-form-
 import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import {
   loadDropSectionFormStylesAction,
-  loadDropSectionListItemStylesAction,
-  setDropSectionListItemStylesAction,
+  loadDraggableItemStylesAction,
+  setDraggableItemStylesAction,
   setDropSectionStylesAction
 } from 'src/app/_store/actions/form-builder.actions';
 import { AppState } from 'src/app/_store/app.states';
@@ -57,6 +57,7 @@ export class AccordionComponent implements OnInit {
     this.dragDropListItemStyle$ = this.store.select(selectDraggableItemStyles);
 
     this.dragDropListItemStyle$.subscribe(inputStyle => {
+      console.log(inputStyle);
       this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle?.styles)  });
     });
 
@@ -88,7 +89,7 @@ export class AccordionComponent implements OnInit {
     }
 
     if (tab === Tabs.FIELD_STYILING) {
-      this.store.dispatch(loadDropSectionListItemStylesAction());
+      this.store.dispatch(loadDraggableItemStylesAction());
 
       if (Object.keys(this.dragDropListItemFormGroup.controls).length === 0) {
         return;
@@ -112,7 +113,7 @@ export class AccordionComponent implements OnInit {
 
       this.setStyles(styleModel.styles, form);
 
-      this.store.dispatch(setDropSectionListItemStylesAction({ styles: styleModel }));
+      this.store.dispatch(setDraggableItemStylesAction({ styles: styleModel }));
     }
   }
 

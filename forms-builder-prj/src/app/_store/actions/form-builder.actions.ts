@@ -23,25 +23,30 @@ export const loadDropSectionFormStylesAction = createAction(
     FormBuilderActionTypes.LOAD_FORM_BUILDER_FORM_STYLES
 );
 
-export const setDropSectionListItemStylesAction = createAction(
-    FormBuilderActionTypes.SET_FORM_BUILDER_LIST_ITEM_STYLES,
+export const setSelectedDraggableItemStylesAction = createAction(
+    FormBuilderActionTypes.SET_SELECTED_DRAGGABLE_ITEM_STYLES,
     props<{ styles: DraggableItemStyles }>()
 );
 
-export const setDropSectionListItemStylesSuccessAction = createAction(
-    FormBuilderActionTypes.SET_FORM_BUILDER_LIST_ITEM_SUCCESS_STYLES,
+export const setSelectedDraggableItemStylesSuccessAction = createAction(
+    FormBuilderActionTypes.SET_SELECTED_DRAGGABLE_ITEM_STYLES_SUCCESS,
     props<{ styles: DraggableItemStyles }>()
 );
 
-export const setDropSectionListItemStylesFailedAction = createAction(
-    FormBuilderActionTypes.SET_FORM_BUILDER_LIST_ITEM_FALIED_STYLES,
+export const setSelectedDraggableItemStylesFailedAction = createAction(
+    FormBuilderActionTypes.SET_SELECTED_DRAGGABLE_ITEM_STYLES_FALIED,
     props<{ errorMessage: string }>()
-)
-
-export const loadDropSectionListItemStylesAction = createAction(
-    FormBuilderActionTypes.LOAD_FORM_BUILDER_LIST_ITEM_STYLES
 );
 
-export const clearDropSectionListItemStylesAction = createAction(
-    FormBuilderActionTypes.CLEAR_FORM_BUILDER_LIST_ITEM_STYLES
+export const setDraggableItemStylesAction = createAction(
+    FormBuilderActionTypes.SET_DRAGGABLE_ITEM_STYLES,
+    props<{ styles: DraggableItemStyles }>()
+);
+
+export const loadDraggableItemStylesAction = createAction(
+    FormBuilderActionTypes.LOAD_DRAGGABLE_ITEM_STYLES
+);
+
+export const clearDraggableItemStylesAction = createAction(
+    FormBuilderActionTypes.CLEAR_DRAGGABLE_ITEM_STYLES
 );

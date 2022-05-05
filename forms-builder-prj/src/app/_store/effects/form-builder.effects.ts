@@ -5,12 +5,12 @@ import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
 import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import {
-    setDropSectionListItemStylesAction,
-    setDropSectionListItemStylesFailedAction,
-    setDropSectionListItemStylesSuccessAction,
+    setSelectedDraggableItemStylesAction,
+    setSelectedDraggableItemStylesSuccessAction,
     setDropSectionStylesAction,
     setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction
+    setDropSectionStylesSuccessAction,
+    setSelectedDraggableItemStylesFailedAction
 } from '../actions/form-builder.actions';
 
 @Injectable({ providedIn: 'root' })
@@ -46,7 +46,7 @@ export class FormBuilderEffects {
 
     setDropItemStyles$ = createEffect(() => {
         return this.actions.pipe(
-            ofType(setDropSectionListItemStylesAction),
+            ofType(setSelectedDraggableItemStylesAction),
             switchMap((payLoad) => {
                 this.formBuilderStyleService.setDragDropListItemStyles(payLoad.styles);
                 const res = this.formBuilderStyleService.isStylesValid(payLoad.styles)
@@ -56,10 +56,10 @@ export class FormBuilderEffects {
                         map((styles: DraggableItemStyles) => {
                             if (res) {
                                 this.formBuilderStyleService.setDragDropListItemStyles(styles);
-                                return setDropSectionListItemStylesSuccessAction({ styles: styles });
+                                return setSelectedDraggableItemStylesSuccessAction({ styles: styles });
                             }
 
-                            return setDropSectionListItemStylesFailedAction({ errorMessage: this.formBuilderStyleService.errorMessages.join(', ')});
+                            return setSelectedDraggableItemStylesFailedAction({ errorMessage: this.formBuilderStyleService.errorMessages.join(', ')});
                         }), tap(() => {
                             console.log(this.formBuilderStyleService.errorMessages);
                             this.formBuilderStyleService.clearErrorMessage();

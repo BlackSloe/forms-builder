@@ -26,7 +26,7 @@ export class AuthenticationEffects {
               if (user) {
                 return loginSuccessAction({ user });
               }
-              return loginFailedAction({ error: 'Failed to login. There is no such user' });
+              return loginFailedAction({ errorMessage: 'Failed to login. There is no such user' });
             })
           )
       })

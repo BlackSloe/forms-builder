@@ -2,23 +2,24 @@ import { createReducer, on } from '@ngrx/store';
 import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
 import {
-    clearDropSectionListItemStylesAction,
+    clearDraggableItemStylesAction,
     loadDropSectionFormStylesAction,
-    setDropSectionListItemStylesAction,
+    setDraggableItemStylesAction,
     setDropSectionStylesAction,
     setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction
+    setDropSectionStylesSuccessAction,
+    setSelectedDraggableItemStylesAction
 } from '../actions/form-builder.actions';
 
 export interface FormBuilderStyleState {
     formGeneralStyles: FormBuilderFormStyle;
-    listItemStyles: DraggableItemStyles | null;
+    draggableItemStyles: DraggableItemStyles | null;
     errorMessage: string | null;
 };
 
 export const initialState: FormBuilderStyleState = {
     formGeneralStyles: new FormBuilderFormStyle(),
-    listItemStyles: null,
+    draggableItemStyles: null,
     errorMessage: null
 };
 
@@ -42,13 +43,17 @@ const _formBuilderReducer = createReducer(
         ...state,
         formGeneralStyles: state.formGeneralStyles
     })),
-    on(setDropSectionListItemStylesAction, (state, action) => ({
+    on(setSelectedDraggableItemStylesAction, (state, action) => ({
         ...state,
-        listItemStyles: action.styles
+        draggableItemStyles: action.styles
     })),
-    on(clearDropSectionListItemStylesAction, (state) => ({
+    on(setDraggableItemStylesAction, (state, action) => ({
         ...state,
-        listItemStyles: null
+        draggableItemStyles: action.styles  
+    })),
+    on(clearDraggableItemStylesAction, (state) => ({
+        ...state,
+        draggableItemStyles: null
     }))
 );
 

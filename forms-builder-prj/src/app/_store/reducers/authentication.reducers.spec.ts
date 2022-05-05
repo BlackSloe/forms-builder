@@ -81,7 +81,7 @@ describe('authentication reducers', () => {
         errorMessage: errorMessage
       };
 
-      const createAction = loginFailedAction({ error: errorMessage });
+      const createAction = loginFailedAction({ errorMessage: errorMessage });
 
       const actualState = reducers.authenticationReducer(initialState, createAction);
 

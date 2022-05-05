@@ -39,7 +39,7 @@ const _authenticationReducer = createReducer(
     on(loginFailedAction, (state, action) => ({
         ...state,
         isAuthenticated: false,
-        errorMessage: action.error
+        errorMessage: action.errorMessage
     })),
     on(signUpAction, (state) => ({
         ...state,

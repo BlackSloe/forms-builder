@@ -1,5 +1,5 @@
 import { ViewContainerRef, Type, ViewChild, Component, Input,  AfterViewInit,  } from '@angular/core';
-import { DraggableItemComponent } from '../components/draggable-item.component';
+import { DraggableItemComponent } from './draggable-item.component';
 
 @Component({
     selector: 'dynamic-component',

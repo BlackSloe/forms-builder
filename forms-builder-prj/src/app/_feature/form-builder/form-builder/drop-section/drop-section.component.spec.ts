@@ -2,8 +2,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { DraggableItemComponentType } from 'src/app/_models/draggable-item-component-type';
-import { DragDropListItemCheckboxComponent } from 'src/app/_shared/components/drag-drop-list-items/drag-drop-list-item-checkbox/drag-drop-list-item-checkbox.component';
-import { DynamicListItemComponent } from 'src/app/_shared/directives/dynamic-list-item.component';
 
 import { DropSectionComponent } from './drop-section.component';
 

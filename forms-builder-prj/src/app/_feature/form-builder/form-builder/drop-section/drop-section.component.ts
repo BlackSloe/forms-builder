@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { AppState } from 'src/app/_store/app.states';
 import { selectDraggableItemStyles, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
 import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
-import { DynamicListItemComponent } from 'src/app/_shared/directives/dynamic-list-item.component';
+import { DynamicListItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
 import { DraggableItemComponent } from 'src/app/_shared/components/draggable-item.component';
 import { DraggableItemComponentType } from 'src/app/_models/draggable-item-component-type';
-import { setDropSectionListItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
+import { setDraggableItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 
 @Component({
   selector: 'app-drop-section',
@@ -72,13 +72,13 @@ export class DropSectionComponent implements OnInit, OnChanges {
       
       this.selectedIndex = event.currentIndex;
 
-      this.dynamicComponents.changes.subscribe(() => {
-        this.dynamicComponents.forEach((item, index) => {
-          if (this.selectedIndex === index) {
-            this.store.dispatch(setDropSectionListItemStylesAction({ styles: item.component.draggableItemStyles }));
-          }
-        });
-      });
+      // this.dynamicComponents.changes.subscribe(() => {
+      //   this.dynamicComponents.forEach((item, index) => {
+      //     if (this.selectedIndex === index) {
+      //       this.store.dispatch(setDraggableItemStylesAction({ styles: item.component.draggableItemStyles }));
+      //     }
+      //   });
+      // });
     }
   }
 
@@ -86,8 +86,10 @@ export class DropSectionComponent implements OnInit, OnChanges {
     this.selectedIndex = index;
 
     this.dynamicComponents.forEach((item, index) => {
+      console.log(item);
+      
       if (this.selectedIndex === index) {
-        this.store.dispatch(setDropSectionListItemStylesAction({ styles: item.component.draggableItemStyles }));
+        this.store.dispatch(setDraggableItemStylesAction({ styles: item.component.draggableItemStyles }));
       }
     })
   }
