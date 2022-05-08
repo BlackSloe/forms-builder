@@ -6,7 +6,7 @@ import { DraggableItemComponent } from './draggable-item.component';
     template: '<ng-template #container></ng-template>'
 })
 
-export class DynamicListItemComponent implements AfterViewInit {
+export class DynamicDraggableItemComponent implements AfterViewInit {
     @Input()
     componentType: Type<any>;
 

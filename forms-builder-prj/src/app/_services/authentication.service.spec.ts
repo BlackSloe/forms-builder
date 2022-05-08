@@ -10,7 +10,7 @@ describe('authentication service', () => {
     let httpTestingController: HttpTestingController;
     let service: AuthenticationService;
     let storeMock: MockStore;
-    
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [AuthenticationService, provideMockStore({})],
@@ -24,6 +24,7 @@ describe('authentication service', () => {
 
     afterEach(() => {
         httpTestingController.verify();
+        localStorage.removeItem('currentUser');
     });
 
     it('should be created', () => {
@@ -33,9 +34,9 @@ describe('authentication service', () => {
     describe('login', () => {
         it('should return user with get method', () => {
             const mockUser = {
-                userName: "test",
-                password: "test",
-                token: "123token",
+                userName: 'test',
+                password: 'test',
+                token: '123token',
                 id: 1
             };
             const url = `http://localhost:3000/users?userName=${mockUser.userName}&password=${mockUser.password}`;
@@ -56,8 +57,8 @@ describe('authentication service', () => {
     describe('signUp', () => {
         it('should sign up new user with post method', () => {
             const mockUser = {
-                userName: "test",
-                password: "test",
+                userName: 'test',
+                password: 'test',
                 token: '',
                 id: 999
             };
@@ -74,15 +75,12 @@ describe('authentication service', () => {
 
             req.flush(mockUser);
         });
-
-       
-
     });
 
     describe('logout', () => {
         it('should clear session storage', () => {
             const sessionStorageSpy = spyOn(localStorage, 'removeItem');
-            const currentUserSpy = spyOn(service['currentUserSubject'], 'next');
+            const currentUserSpy = spyOn(service['_currentUserSubject'], 'next');
 
             service.logout();
 

@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
 import { Observable } from 'rxjs';
-import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
+import { IFormBuilderStyles } from 'src/app/_shared/interfaces/form-builder-styles.interface';
 
 @Component({
   selector: 'app-accordion-item-body',
@@ -15,7 +14,7 @@ export class AccordionItemBodyComponent implements OnInit {
   stylingFormGroup: FormGroup;
 
   @Input()
-  formBuilderStyles$: Observable<FormBuilderFormStyle> | Observable<DraggableItemStyles>;
+  formBuilderStyles$: Observable<IFormBuilderStyles>;
 
   @Output()
   styilingFormGroupEmitter: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();

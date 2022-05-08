@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
-import { FormBuilderFormStyle } from '../_models/form-builder-form-style';
+import { FormBuilderFormStyles } from '../_models/form-builder-form-styles';
 import { DraggableItemStyles } from '../_models/draggable/draggable-item-styles';
-import { IStyles } from '../_shared/interfaces/styles.interface';
+import { IFormBuilderStyles } from '../_shared/interfaces/form-builder-styles.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FormBuilderStylingService {
-    private currentFormBuilderFormStylesSubject: BehaviorSubject<FormBuilderFormStyle>;
-    private _currentFormBuilderFormStyles$: Observable<FormBuilderFormStyle>;
+    private currentFormBuilderFormStylesSubject: BehaviorSubject<FormBuilderFormStyles>;
+    private _currentFormBuilderFormStyles$: Observable<FormBuilderFormStyles>;
 
-    private currentDragDropListItemStylesSubject: BehaviorSubject<FormBuilderFormStyle>;
-    private _currentDragDropListItemStyles$: Observable<FormBuilderFormStyle>;
+    private currentDraggableItemStylesSubject: BehaviorSubject<DraggableItemStyles>;
+    private _currentDraggableItemStyles$: Observable<DraggableItemStyles>;
 
     private _errorMessages: string[] = [];
 
@@ -28,7 +28,7 @@ export class FormBuilderStylingService {
         'hidden'
     ];
 
-    public isStylesValid(styles: IStyles): boolean {
+    public isStylesValid(styles: IFormBuilderStyles): boolean {
         return this.validateStyles(styles);
     }
 
@@ -37,54 +37,40 @@ export class FormBuilderStylingService {
     }
 
     constructor() {
-        this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyle>
-            (new FormBuilderFormStyle());
+        this.currentFormBuilderFormStylesSubject = new BehaviorSubject<FormBuilderFormStyles>
+            (new FormBuilderFormStyles());
         this._currentFormBuilderFormStyles$ = this.currentFormBuilderFormStylesSubject.asObservable();
 
-        this.currentDragDropListItemStylesSubject = new BehaviorSubject<FormBuilderFormStyle>
-            (new FormBuilderFormStyle());
-        this._currentDragDropListItemStyles$ = this.currentDragDropListItemStylesSubject.asObservable();
+        this.currentDraggableItemStylesSubject = new BehaviorSubject<DraggableItemStyles>
+            (new DraggableItemStyles());
+        this._currentDraggableItemStyles$ = this.currentDraggableItemStylesSubject.asObservable();
     }
 
-    public get currentFormBuilderFormStyles$(): Observable<FormBuilderFormStyle> {
+    public get currentFormBuilderFormStyles$(): Observable<FormBuilderFormStyles> {
         return this._currentFormBuilderFormStyles$;
     }
 
-    public get currentDragDropListItemStyles$(): Observable<FormBuilderFormStyle> {
-        return this._currentDragDropListItemStyles$;
+    public get currentDraggableItemStyles$(): Observable<DraggableItemStyles> {
+        return this._currentDraggableItemStyles$;
     }
 
-    public setFormBuilderStyles(value: FormBuilderFormStyle): void {
+    public setFormBuilderStyles(value: FormBuilderFormStyles): void {
         this.currentFormBuilderFormStylesSubject.next(value);
     }
 
-    public setDragDropListItemStyles(value: DraggableItemStyles): void {
-        this.currentDragDropListItemStylesSubject.next(value);
+    public setDraggableItemStyles(value: DraggableItemStyles): void {
+        this.currentDraggableItemStylesSubject.next(value);
     }
 
-    private validateStyles(style: IStyles): boolean {
+    private validateStyles(formBuilderStyles: IFormBuilderStyles): boolean {
         let isValid = true;
-        let testVal;
 
-        if (style instanceof FormBuilderFormStyle) {
-            testVal = JSON.parse(JSON.stringify(this.currentFormBuilderFormStylesSubject.value)) as FormBuilderFormStyle;
-        }
-        else {
-            testVal = JSON.parse(JSON.stringify(this.currentDragDropListItemStylesSubject.value)) as DraggableItemStyles;
-        }
-
-        for (const style of testVal.styles) {
+        for (const style of formBuilderStyles.styles) {
             for (const validationRule of style.validationRules) {
 
                 switch (validationRule) {
                     case FormBuilderStylePropertyValidationRules.IS_MEASURED_IN_PIXELS: {
-                        if (style?.propValue.endsWith('px')) {
-                            break;
-                        }
-
-                        if (this.isDigit(style.propValue)) {
-                            style.propValue = this.appendPixels(style.propValue);
-                        } else {
+                        if (!style.propValue.endsWith('px')) {
                             this._errorMessages.push(`${style.propName} is not digit`);
                             isValid = false;
                         }
@@ -105,7 +91,7 @@ export class FormBuilderStylingService {
                     } break;
 
                     case FormBuilderStylePropertyValidationRules.NOT_NEGATIVE: {
-                        if (this.isNegative(style?.propValue)) {
+                        if (this.isNegative(style.propValue)) {
                             this._errorMessages.push(`${style.propName} should not be negative value`);
                             isValid = false;
                         }
@@ -115,13 +101,6 @@ export class FormBuilderStylingService {
                 }
             }
         }
-        if (style instanceof FormBuilderFormStyle) {
-            this.currentFormBuilderFormStylesSubject.next(testVal);
-        }
-        else {
-            this.currentDragDropListItemStylesSubject.next(testVal);
-        }
-
         return isValid;
     }
 
@@ -129,12 +108,12 @@ export class FormBuilderStylingService {
         this._errorMessages = [];
     }
 
-    private appendPixels(propValue: string): string {
-        if (!propValue.endsWith('px')) {
-            return propValue.concat('px');
-        }
-        return propValue;
-    }
+    // private appendPixels(propValue: string): string {
+    //     if (!propValue.endsWith('px')) {
+    //         return propValue.concat('px');
+    //     }
+    //     return propValue;
+    // }
 
     private isDigit(propValue: string): boolean {
         return /^\d+$/.test(propValue);

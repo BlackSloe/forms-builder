@@ -13,7 +13,7 @@ import { DraggableTextareaComponent } from 'src/app/_shared/components/draggable
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DragSectionComponent implements OnInit {
-  public dragSectionItems: Array<DraggableItemComponentType>  = [
+  public draggableItems: DraggableItemComponentType[]  = [
     { component: new DraggableInputComponent(), type: DraggableInputComponent },
     { component: new DraggableTextareaComponent(), type: DraggableTextareaComponent },
     { component: new DraggableButtonComponent(), type: DraggableButtonComponent },

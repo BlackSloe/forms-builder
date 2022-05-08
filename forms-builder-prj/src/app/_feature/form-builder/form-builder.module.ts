@@ -11,7 +11,7 @@ import { AccordionItemBodyComponent } from './form-builder/accordion/accordion-i
 import { SeparatorPipe } from 'src/app/_shared/pipes/input-field-separator.pipe';
 import { UnitAppenderPipe } from 'src/app/_shared/pipes/input-field-unit-appender.pipe';
 import { ReactiveComponentModule } from '@ngrx/component';
-import { DynamicListItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
+import { DynamicDraggableItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
 import { DragDropListItemsModule } from 'src/app/_shared/components/draggable-components/drag-drop-list-items.module';
 
 const material = [
@@ -28,7 +28,7 @@ const material = [
     AccordionItemBodyComponent,
     SeparatorPipe,
     UnitAppenderPipe,
-    DynamicListItemComponent
+    DynamicDraggableItemComponent
   ],
   imports: [
     CommonModule,

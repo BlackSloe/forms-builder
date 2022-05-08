@@ -1,14 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { DraggableItemStyles } from 'src/app/_models/draggable-item-styles';
-import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
+import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
+import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import {
     clearDraggableItemStylesAction,
     loadDropSectionFormStylesAction,
     setDraggableItemStylesAction,
     setDropSectionStylesAction,
     setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction
+    setDropSectionStylesSuccessAction,
+    setSelectedDraggableItemStylesAction
 } from '../actions/form-builder.actions';
 import { reducers } from '../app.states';
 
@@ -28,7 +29,7 @@ describe('form-builder reducers', () => {
 
     describe('formBuilderReducer', () => {
         it('should setDropSectionStyles action', () => {
-            const mockFormGeneralStyles = new FormBuilderFormStyle();
+            const mockFormGeneralStyles = new FormBuilderFormStyles();
             const initialState: any = {};
 
             const createAction = setDropSectionStylesAction({ styles: mockFormGeneralStyles });
@@ -39,12 +40,12 @@ describe('form-builder reducers', () => {
         });
 
         it('should setDropSectionStylesSuccess action', () => {
-            const mockFormGeneralStyles = new FormBuilderFormStyle();
+            const mockFormGeneralStyles = new FormBuilderFormStyles();
 
             mockFormGeneralStyles.styles.forEach((style) => {
                 style.propValue = '123';
             });
-            
+
             const expectedState = {
                 formGeneralStyles: mockFormGeneralStyles,
                 errorMessage: null,
@@ -64,12 +65,12 @@ describe('form-builder reducers', () => {
             const errorMessage = 'asus x556 uq';
 
             const expectedState = {
-                errorMessage: errorMessage
+                errorMessage
             };
 
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesFailedAction({ errorMessage: errorMessage });
+            const createAction = setDropSectionStylesFailedAction({ errorMessage });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -90,13 +91,13 @@ describe('form-builder reducers', () => {
             expect(actualState.formGeneralStyles).toEqual(expectedState.formGeneralStyles);
         });
 
-        it('should setDropSectionListItemStyles action', () => {
+        it('should setDraggableItemStyles action', () => {
             const mockListItemStyles = new DraggableItemStyles();
 
             mockListItemStyles.styles.forEach((style) => {
                 style.propValue = 'Hello'
             });
-            
+
             const expectedState = {
                 listItemStyles: mockListItemStyles
             };
@@ -107,12 +108,32 @@ describe('form-builder reducers', () => {
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
-            expect(actualState.listItemStyles).toEqual(expectedState.listItemStyles);
+            expect(actualState.draggableItemStyles).toEqual(expectedState.listItemStyles);
         });
 
-        it('should clearDropSectionListItemStyles action', () => {
+        it('should setSelectedDraggableItemStyles action', () => {
             const mockListItemStyles = new DraggableItemStyles();
-            
+
+            mockListItemStyles.styles.forEach((style) => {
+                style.propValue = 'Hello'
+            });
+
+            const expectedState = {
+                listItemStyles: mockListItemStyles
+            };
+
+            const initialState: any = {};
+
+            const createAction = setSelectedDraggableItemStylesAction({ styles: mockListItemStyles });
+
+            const actualState = reducers.formBuilderReducer(initialState, createAction);
+
+            expect(actualState.draggableItemStyles).toEqual(expectedState.listItemStyles);
+        });
+
+        it('should clearDraggableItemStylesAction action', () => {
+            const mockListItemStyles = new DraggableItemStyles();
+
             const expectedState = {
                 listItemStyles: null
             };
@@ -125,7 +146,7 @@ describe('form-builder reducers', () => {
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
-            expect(actualState.listItemStyles).toEqual(expectedState.listItemStyles);
+            expect(actualState.draggableItemStyles).toEqual(expectedState.listItemStyles);
         });
     });
 });

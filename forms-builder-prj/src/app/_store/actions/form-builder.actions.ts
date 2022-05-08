@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
+import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import { FormBuilderActionTypes } from 'src/app/_enums/form-builder.action.types';
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 
 
 export const setDropSectionStylesAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_STYLES,
-    props<{ styles: FormBuilderFormStyle }>()
+    props<{ styles: FormBuilderFormStyles }>()
 );
 
 export const setDropSectionStylesSuccessAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_SUCCESS_STYLES,
-    props<{ styles: FormBuilderFormStyle }>()
+    props<{ styles: FormBuilderFormStyles }>()
 );
 
 export const setDropSectionStylesFailedAction = createAction(

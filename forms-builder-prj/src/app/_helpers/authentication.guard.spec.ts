@@ -8,16 +8,16 @@ import { AuthenticationGuard } from './authentication.guard';
 describe('Authentication Guard', () => {
     let authenticationGuard: AuthenticationGuard;
     let authenticationService: AuthenticationService;
-    let router = {
+    const router = {
         navigate: jasmine.createSpy('navigate')
     };
-    let routeMock: any = { snapshot: {}};
-    let routerStateMock: any = { snapshot: {}, url: '/homepage'};
+    const routeMock: any = { snapshot: {}};
+    const routerStateMock: any = { snapshot: {}, url: '/homepage'};
     let storeMock: MockStore;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: 
+            providers:
                 [
                     AuthenticationGuard,
                     AuthenticationService,

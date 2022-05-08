@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { FormBuilderFormStyle } from 'src/app/_models/form-builder-form-style';
+import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
     clearDraggableItemStylesAction,
@@ -12,13 +12,13 @@ import {
 } from '../actions/form-builder.actions';
 
 export interface FormBuilderStyleState {
-    formGeneralStyles: FormBuilderFormStyle;
+    formGeneralStyles: FormBuilderFormStyles;
     draggableItemStyles: DraggableItemStyles | null;
     errorMessage: string | null;
 };
 
 export const initialState: FormBuilderStyleState = {
-    formGeneralStyles: new FormBuilderFormStyle(),
+    formGeneralStyles: new FormBuilderFormStyles(),
     draggableItemStyles: null,
     errorMessage: null
 };
@@ -49,7 +49,7 @@ const _formBuilderReducer = createReducer(
     })),
     on(setDraggableItemStylesAction, (state, action) => ({
         ...state,
-        draggableItemStyles: action.styles  
+        draggableItemStyles: action.styles
     })),
     on(clearDraggableItemStylesAction, (state) => ({
         ...state,

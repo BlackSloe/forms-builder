@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadUser());
-    
+
     this.store.select(selectIsUserAuthenticated)
       .subscribe(isAuthenticated => {
         this.isAuthenticated = isAuthenticated;

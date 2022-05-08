@@ -11,10 +11,6 @@ export class DraggableButtonComponent extends DraggableItemComponent {
     }
 
     public get styles(): any {
-        return super.getStylesAsKeyValue(this.draggableItemStyles);
-    }
-
-    public get placeHolderText(): string {
-        return super.getPlaceHolderText(this.draggableItemStyles); 
+        return this.getStylesAsKeyValue(this.draggableItemStyles);
     }
 };

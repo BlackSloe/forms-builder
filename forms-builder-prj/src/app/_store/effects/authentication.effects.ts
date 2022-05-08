@@ -34,7 +34,7 @@ export class AuthenticationEffects {
       })
     )
   });
-  
+
   signUp$ = createEffect(() => {
     return this.actions.pipe(
       ofType(signUpAction),

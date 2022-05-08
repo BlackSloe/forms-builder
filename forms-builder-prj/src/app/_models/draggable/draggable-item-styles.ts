@@ -1,10 +1,10 @@
 import { FormBuilderStylePropertyValidationRules as ValidationRules} from 'src/app/_enums/form-builder-style-property-validation-rules';
 
-import { IStyles } from 'src/app/_shared/interfaces/styles.interface';
+import { IFormBuilderStyles } from 'src/app/_shared/interfaces/form-builder-styles.interface';
 import { DraggableItemStyleProperty } from './draggable-item-style-property';
 
 
-export class DraggableItemStyles implements IStyles {
+export class DraggableItemStyles implements IFormBuilderStyles {
     styles: DraggableItemStyleProperty[] = [];
 
     constructor() {
@@ -37,6 +37,12 @@ export class DraggableItemStyles implements IStyles {
                 propName: 'placeHolderText',
                 propValue: 'Default Text',
                 validationRules: [],
+                inStyleArray: false
+            },
+            {
+                propName: 'height',
+                propValue: '',
+                validationRules: [ValidationRules.IS_MEASURED_IN_PIXELS, ValidationRules.IS_MEASURED_IN_PIXELS],
                 inStyleArray: false
             }
         ]

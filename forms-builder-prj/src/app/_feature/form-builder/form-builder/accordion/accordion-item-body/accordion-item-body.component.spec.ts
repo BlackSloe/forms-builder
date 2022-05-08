@@ -27,7 +27,7 @@ describe('AccordionItemBodyComponent', () => {
   describe('onFormSubmit', () => {
     it('should emit form', () => {
       const emitSpy = spyOn(component.styilingFormGroupEmitter, 'emit');
-      const formGroup = new FormBuilder().group({ hello: [''], goodbye: [''] }); 
+      const formGroup = new FormBuilder().group({ hello: [''], goodbye: [''] });
 
       component.stylingFormGroup = formGroup;
       component.onFormSubmit();

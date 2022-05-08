@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { User } from 'src/app/_models/user';
 import {
+  loadUser,
+  loadUserFailed,
+  loadUserSuccessfully,
   loginAction,
   loginFailedAction,
   loginSuccessAction,
@@ -28,9 +31,9 @@ describe('authentication reducers', () => {
   describe('authenticationReducer', () => {
     it('should login action', () => {
       const mockUser: User = {
-        userName: "test",
-        password: "test",
-        token: "123token",
+        userName: 'test',
+        password: 'test',
+        token: '123token',
         id: 1
       };
 
@@ -51,9 +54,9 @@ describe('authentication reducers', () => {
 
     it('should loginSuccess action', () => {
       const mockUser: User = {
-        userName: "test",
-        password: "test",
-        token: "123token",
+        userName: 'test',
+        password: 'test',
+        token: '123token',
         id: 1
       };
 
@@ -78,10 +81,10 @@ describe('authentication reducers', () => {
 
       const expectedState = {
         isAuthenticated: false,
-        errorMessage: errorMessage
+        errorMessage
       };
 
-      const createAction = loginFailedAction({ errorMessage: errorMessage });
+      const createAction = loginFailedAction({ errorMessage });
 
       const actualState = reducers.authenticationReducer(initialState, createAction);
 
@@ -91,9 +94,9 @@ describe('authentication reducers', () => {
 
     it('should signUp action', () => {
       const mockUser: User = {
-        userName: "test",
-        password: "test",
-        token: "123token",
+        userName: 'test',
+        password: 'test',
+        token: '123token',
         id: 1
       };
 
@@ -105,7 +108,9 @@ describe('authentication reducers', () => {
         errorMessage: null
       };
 
-      const createAction = signUpAction({ userName: mockUser.userName, password: mockUser.password, token: mockUser.token });
+      const createAction = signUpAction(
+        { userName: mockUser.userName, password: mockUser.password, token: mockUser.token }
+      );
 
       const actualState = reducers.authenticationReducer(initialState, createAction);
 
@@ -114,9 +119,9 @@ describe('authentication reducers', () => {
 
     it('should signUpSuccess action', () => {
       const mockUser: User = {
-        userName: "test",
-        password: "test",
-        token: "123token",
+        userName: 'test',
+        password: 'test',
+        token: '123token',
         id: 1
       };
 
@@ -150,6 +155,66 @@ describe('authentication reducers', () => {
       const actualState = reducers.authenticationReducer(initialState, createAction);
 
       expect(actualState.user).toEqual(expectedState.user);
+    });
+
+    it('should loaduser action', () => {
+      const user: User = {
+        id: 0,
+        userName: 'q',
+        password: 'q',
+        token: 'q'
+      };
+
+      const initialState: any = {
+        user
+      };
+
+      const expectedState = {
+        user
+      };
+
+      const createAction = loadUser();
+
+      const actualState = reducers.authenticationReducer(initialState, createAction);
+
+      expect(actualState.user).toEqual(expectedState.user);
+    });
+
+    it('should loadUserSuccessfully action', () => {
+      const user: User = {
+        id: 0,
+        userName: 'q',
+        password: 'q',
+        token: 'q'
+      };
+
+      const initialState: any = {};
+
+      const expectedState = {
+        user
+      };
+
+      const createAction = loadUserSuccessfully({ user });
+
+      const actualState = reducers.authenticationReducer(initialState, createAction);
+
+      expect(actualState.user).toEqual(expectedState.user);
+    });
+
+    it('should loadUserFailed action', () => {
+      const errorMessage = 'Error 123';
+
+      const initialState: any = {};
+
+      const expectedState = {
+        errorMessage
+      };
+
+      const createAction = loadUserFailed({ errorMessage });
+
+      const actualState = reducers.authenticationReducer(initialState, createAction);
+
+      expect(actualState.errorMessage).toEqual(expectedState.errorMessage);
     });
   });
 });

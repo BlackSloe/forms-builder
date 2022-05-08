@@ -4,31 +4,28 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
-import { Store } from '@ngrx/store';
-import { AppState } from '../_store/app.states';
-import { loginSuccessAction } from '../_store/actions/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
+    private _currentUserSubject: BehaviorSubject<User>;
     public currentUser$: Observable<User>;
+
     public isLoggedin: boolean;
 
-    constructor(private http: HttpClient, private store: Store<AppState>) {
-        let user = JSON.parse(localStorage?.getItem('currentUser')) as User;
-        console.log(user);
+    constructor(private http: HttpClient) {
+        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
 
-        this.currentUserSubject = new BehaviorSubject<User>(user);
+        this._currentUserSubject = new BehaviorSubject<User>(user);
 
-        this.isLoggedin = true;
+        if (user) {
+            this.isLoggedin = true;
+        }
 
-        this.store.dispatch(loginSuccessAction({ user }));
-        
-        this.currentUser$ = this.currentUserSubject.asObservable();
+        this.currentUser$ = this._currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User {
-        return this.currentUserSubject.value;
+        return this._currentUserSubject.value;
     }
 
     public login(userName: string, password: string): Observable<any> {
@@ -36,25 +33,21 @@ export class AuthenticationService {
 
         return this.http.get<User>(uri)
             .pipe(mergeMap(user => {
-                let loggedInUser = JSON.parse(JSON.stringify(user[0]));
-
                 this.isLoggedin = true;
 
-                const uid = loggedInUser.id;
-                const userName = loggedInUser.userName;
-
                 return this.http.post(`${environment.backApiUrl}/token/generateToken`,
-                    { id: uid, userName: userName },
+                    { id: user[0].id, userName: user[0].userName },
                     { responseType: 'text' })
                     .pipe(map(token => {
-                        const l = { id: loggedInUser.id, userName: loggedInUser.userName, password: loggedInUser.password, token: token } as User
+                        const loggedInUser = Object.assign(user[0]);
+                        loggedInUser.token = token;
 
-                        localStorage.setItem('currentUser', JSON.stringify(l));
+                        localStorage.setItem('currentUser', JSON.stringify(loggedInUser));
 
-                        this.currentUserSubject.next(l);
-                        return l;
-                }));
-                
+                        this._currentUserSubject.next(loggedInUser);
+
+                        return loggedInUser;
+                    }));
             }));
     }
 
@@ -66,6 +59,7 @@ export class AuthenticationService {
         this.isLoggedin = false;
 
         localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+
+        this._currentUserSubject.next(null);
     }
 }
