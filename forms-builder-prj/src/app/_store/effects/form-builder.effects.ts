@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import { FormBuilderStylingService } from 'src/app/_services/form-builder-styling.service';
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
     setSelectedDraggableItemStylesAction,
     setSelectedDraggableItemStylesSuccessAction,
-    setDropSectionStylesAction,
-    setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction,
+    setFormBuilderStylesAction,
+    setFormBuilderStylesFailedAction,
+    setFormBuilderStylesSuccessAction,
     setSelectedDraggableItemStylesFailedAction
 } from '../actions/form-builder.actions';
 
@@ -20,7 +20,7 @@ export class FormBuilderEffects {
 
     setFormBuilderStyles$ = createEffect(() => {
         return this.actions.pipe(
-            ofType(setDropSectionStylesAction),
+            ofType(setFormBuilderStylesAction),
             switchMap((payLoad) => {
                 const isStylesValid = this.formBuilderStyilingService.isStylesValid(payLoad.styles);
 
@@ -30,12 +30,12 @@ export class FormBuilderEffects {
                     .pipe(
                         map((styles: FormBuilderFormStyles) => {
                             if (isStylesValid) {
-                                return setDropSectionStylesSuccessAction({ styles });
+                                return setFormBuilderStylesSuccessAction({ styles });
                             }
                             const errorMessage = this.formBuilderStyilingService.errorMessages.join(', ');
                             this.formBuilderStyilingService.clearErrorMessage();
 
-                            return setDropSectionStylesFailedAction({ errorMessage });
+                            return setFormBuilderStylesFailedAction({ errorMessage });
                         })
                     )
             })

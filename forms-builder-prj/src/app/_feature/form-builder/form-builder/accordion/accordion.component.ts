@@ -8,9 +8,9 @@ import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles'
 import { FormBuilderStyleProperty } from 'src/app/_models/form-builder-style-property';
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
-  loadDropSectionFormStylesAction,
+  loadFormBuilderFormStylesAction,
   loadDraggableItemStylesAction,
-  setDropSectionStylesAction,
+  setFormBuilderStylesAction,
   setSelectedDraggableItemStylesAction
 } from 'src/app/_store/actions/form-builder.actions';
 import { AppState } from 'src/app/_store/app.states';
@@ -31,14 +31,15 @@ export class AccordionComponent implements OnInit {
   public formBuilderFormStyles$: Observable<FormBuilderFormStyles>;
   public draggableItemStyles$: Observable<DraggableItemStyles>;
 
+  private _formBuilderFormStyles: FormBuilderFormStyles;
+  private _draggableItemStyles: DraggableItemStyles;
+
+  public formBuilderFormGroup: FormGroup;
+  public draggableItemFormGroup: FormGroup;
+
   public selectedTab: string;
 
   public expandedIndex = 0;
-
-  public dragDropFormGroup: FormGroup;
-  public dragDropListItemFormGroup: FormGroup;
-
-  public model: FormBuilderStyleProperty[] = [];
 
   constructor(private store: Store<AppState>,
     public formBuilder: FormBuilder) {
@@ -46,7 +47,7 @@ export class AccordionComponent implements OnInit {
 
   public get currentFormGroup(): FormGroup {
     return this.selectedTab === Tabs.FORM_GENERAL_STYILING ?
-      this.dragDropFormGroup : this.dragDropListItemFormGroup
+      this.formBuilderFormGroup : this.draggableItemFormGroup
   }
 
   public get currentStyles$(): Observable<FormBuilderFormStyles> | Observable<DraggableItemStyles> {
@@ -60,15 +61,17 @@ export class AccordionComponent implements OnInit {
     this.draggableItemStyles$ = this.store.select(selectDraggableItemStyles);
 
     this.draggableItemStyles$.subscribe(inputStyle => {
-      this.dragDropListItemFormGroup = this.formBuilder.group({ ...this.mapModelToObject(inputStyle?.styles) });
+      this._draggableItemStyles = inputStyle;
+      this.draggableItemFormGroup = this.formBuilder.group({ ...this.stylesAsKeyValue(this._draggableItemStyles?.styles) });
     });
 
     this.formBuilderFormStyles$.subscribe(formStyles => {
-      this.dragDropFormGroup = this.formBuilder.group({ ...this.mapModelToObject(formStyles.styles) });
+      this._formBuilderFormStyles = formStyles;
+      this.formBuilderFormGroup = this.formBuilder.group({ ...this.stylesAsKeyValue(this._formBuilderFormStyles.styles) });
     });
   }
 
-  private mapModelToObject(styles: FormBuilderStyleProperty[]): any {
+  private stylesAsKeyValue(styles: FormBuilderStyleProperty[]): any {
     if (!styles) {
       return undefined;
     }
@@ -83,13 +86,13 @@ export class AccordionComponent implements OnInit {
 
   public accordionItemClick(accordionItem: CdkAccordionItem, tab: string): void {
     if (tab === Tabs.FORM_GENERAL_STYILING) {
-      this.store.dispatch(loadDropSectionFormStylesAction());
+      this.store.dispatch(loadFormBuilderFormStylesAction());
     }
 
     if (tab === Tabs.FIELD_STYILING) {
       this.store.dispatch(loadDraggableItemStylesAction());
 
-      if (Object.keys(this.dragDropListItemFormGroup.controls).length === 0) {
+      if (Object.keys(this.draggableItemFormGroup.controls).length === 0) {
         return;
       }
     }
@@ -101,17 +104,17 @@ export class AccordionComponent implements OnInit {
 
   public onFormSubmit(form: FormGroup): void {
     if (this.selectedTab === Tabs.FORM_GENERAL_STYILING) {
-      const styleModel: FormBuilderFormStyles = new FormBuilderFormStyles();
-
-      this.setStyles(styleModel.styles, form);
-
-      this.store.dispatch(setDropSectionStylesAction({ styles: styleModel }));
+      const styles = JSON.parse(JSON.stringify(this._formBuilderFormStyles)) as FormBuilderFormStyles;
+      
+      this.setStyles(styles.styles, form);
+      
+      this.store.dispatch(setFormBuilderStylesAction({ styles }));
     } else if (this.selectedTab === Tabs.FIELD_STYILING) {
-      const styleModel: DraggableItemStyles = new DraggableItemStyles();
+      const styles = JSON.parse(JSON.stringify(this._draggableItemStyles)) as DraggableItemStyles;
 
-      this.setStyles(styleModel.styles, form);
+      this.setStyles(styles.styles, form);
 
-      this.store.dispatch(setSelectedDraggableItemStylesAction({ styles: styleModel }));
+      this.store.dispatch(setSelectedDraggableItemStylesAction({ styles }));
     }
   }
 
@@ -121,7 +124,9 @@ export class AccordionComponent implements OnInit {
 
       const styleProp = styles.find(styleProp => styleProp.propName === formPropName);
 
-      styleProp!.propValue = formPropValue;
+      if (styleProp) {
+        styleProp.propValue = formPropValue;
+      }
     }
   }
 }

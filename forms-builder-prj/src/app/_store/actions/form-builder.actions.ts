@@ -4,22 +4,22 @@ import { FormBuilderActionTypes } from 'src/app/_enums/form-builder.action.types
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 
 
-export const setDropSectionStylesAction = createAction(
+export const setFormBuilderStylesAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_STYLES,
     props<{ styles: FormBuilderFormStyles }>()
 );
 
-export const setDropSectionStylesSuccessAction = createAction(
+export const setFormBuilderStylesSuccessAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_SUCCESS_STYLES,
     props<{ styles: FormBuilderFormStyles }>()
 );
 
-export const setDropSectionStylesFailedAction = createAction(
+export const setFormBuilderStylesFailedAction = createAction(
     FormBuilderActionTypes.SET_FORM_BUILDER_FALIED_STYLES,
     props<{ errorMessage: string }>()
 );
 
-export const loadDropSectionFormStylesAction = createAction(
+export const loadFormBuilderFormStylesAction = createAction(
     FormBuilderActionTypes.LOAD_FORM_BUILDER_FORM_STYLES
 );
 

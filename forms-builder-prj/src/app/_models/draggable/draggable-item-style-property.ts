@@ -2,7 +2,7 @@ import { FormBuilderStylePropertyValidationRules } from 'src/app/_enums/form-bui
 import { FormBuilderStyleProperty } from '../form-builder-style-property';
 
 export class DraggableItemStyleProperty implements FormBuilderStyleProperty {
-    propName: string;
+    readonly propName: string;
     propValue: string;
 
     readonly inStyleArray: boolean;

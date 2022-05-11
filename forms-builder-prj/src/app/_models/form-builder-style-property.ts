@@ -2,7 +2,7 @@ import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-
 import { StyleProperty } from './style-property';
 
 export class FormBuilderStyleProperty implements StyleProperty {
-    propName: string;
+    readonly propName: string;
     propValue: string;
 
     validationRules: FormBuilderStylePropertyValidationRules[];

@@ -3,11 +3,11 @@ import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles'
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import {
     clearDraggableItemStylesAction,
-    loadDropSectionFormStylesAction,
+    loadFormBuilderFormStylesAction,
     setDraggableItemStylesAction,
-    setDropSectionStylesAction,
-    setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction,
+    setFormBuilderStylesAction,
+    setFormBuilderStylesFailedAction,
+    setFormBuilderStylesSuccessAction,
     setSelectedDraggableItemStylesAction
 } from '../actions/form-builder.actions';
 
@@ -25,21 +25,21 @@ export const initialState: FormBuilderStyleState = {
 
 const _formBuilderReducer = createReducer(
     initialState,
-    on(setDropSectionStylesAction, (state) => ({
+    on(setFormBuilderStylesAction, (state) => ({
         ...state,
         formGeneralStyles: state.formGeneralStyles,
         errorMessage: null
     })),
-    on(setDropSectionStylesSuccessAction, (state, action) => ({
+    on(setFormBuilderStylesSuccessAction, (state, action) => ({
        ...state,
        formGeneralStyles: action.styles,
        errorMessage: null
     })),
-    on(setDropSectionStylesFailedAction, (state, action) => ({
+    on(setFormBuilderStylesFailedAction, (state, action) => ({
         ...state,
         errorMessage: action.errorMessage
     })),
-    on(loadDropSectionFormStylesAction, (state) => ({ //add success and failed
+    on(loadFormBuilderFormStylesAction, (state) => ({
         ...state,
         formGeneralStyles: state.formGeneralStyles
     })),

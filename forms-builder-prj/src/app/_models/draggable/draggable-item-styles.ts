@@ -43,7 +43,7 @@ export class DraggableItemStyles implements IFormBuilderStyles {
                 propName: 'height',
                 propValue: '',
                 validationRules: [ValidationRules.IS_MEASURED_IN_PIXELS, ValidationRules.IS_MEASURED_IN_PIXELS],
-                inStyleArray: false
+                inStyleArray: true
             }
         ]
     }

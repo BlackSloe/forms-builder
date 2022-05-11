@@ -4,11 +4,11 @@ import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-st
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import {
     clearDraggableItemStylesAction,
-    loadDropSectionFormStylesAction,
+    loadFormBuilderFormStylesAction,
     setDraggableItemStylesAction,
-    setDropSectionStylesAction,
-    setDropSectionStylesFailedAction,
-    setDropSectionStylesSuccessAction,
+    setFormBuilderStylesAction,
+    setFormBuilderStylesFailedAction,
+    setFormBuilderStylesSuccessAction,
     setSelectedDraggableItemStylesAction
 } from '../actions/form-builder.actions';
 import { reducers } from '../app.states';
@@ -32,7 +32,7 @@ describe('form-builder reducers', () => {
             const mockFormGeneralStyles = new FormBuilderFormStyles();
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesAction({ styles: mockFormGeneralStyles });
+            const createAction = setFormBuilderStylesAction({ styles: mockFormGeneralStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -53,7 +53,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesSuccessAction({ styles: mockFormGeneralStyles });
+            const createAction = setFormBuilderStylesSuccessAction({ styles: mockFormGeneralStyles });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -70,7 +70,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = setDropSectionStylesFailedAction({ errorMessage });
+            const createAction = setFormBuilderStylesFailedAction({ errorMessage });
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 
@@ -84,7 +84,7 @@ describe('form-builder reducers', () => {
 
             const initialState: any = {};
 
-            const createAction = loadDropSectionFormStylesAction();
+            const createAction = loadFormBuilderFormStylesAction();
 
             const actualState = reducers.formBuilderReducer(initialState, createAction);
 

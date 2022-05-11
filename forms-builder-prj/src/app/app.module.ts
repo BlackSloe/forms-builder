@@ -16,7 +16,6 @@ import { AuthenticationGuard } from './_helpers/authentication.guard';
 import { NavbarModule } from './_core/navbar/navbar.module';
 import { FormBuilderEffects } from './_store/effects/form-builder.effects';
 import { MatSelectModule } from '@angular/material/select';
-import { SeparatorPipe } from './_shared/pipes/input-field-separator.pipe';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ContentTypeInterceptor } from './_helpers/content-type.interceptor';
 
