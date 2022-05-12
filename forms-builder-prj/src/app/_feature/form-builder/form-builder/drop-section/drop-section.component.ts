@@ -1,7 +1,7 @@
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 import { AppState } from 'src/app/_store/app.states';
 import {
   selectDraggableItemStyles,
@@ -16,7 +16,7 @@ import { setDraggableItemStylesAction } from 'src/app/_store/actions/form-builde
   templateUrl: './drop-section.component.html',
   styleUrls: ['./drop-section.component.css']
 })
-export class DropSectionComponent implements OnInit {
+export class DropSectionComponent implements OnInit, OnDestroy {
   @ViewChildren(DynamicDraggableItemComponent)
   dynamicComponents: QueryList<DynamicDraggableItemComponent>;
 
@@ -25,6 +25,8 @@ export class DropSectionComponent implements OnInit {
   public draggableItems: DraggableItemComponentType[] = [];
 
   public formStyles$: Observable<any>;
+
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private store: Store<AppState>) {}
 
@@ -37,7 +39,7 @@ export class DropSectionComponent implements OnInit {
       }
 
       return formStylesKeyValue;
-    }));
+    }), takeUntil(this._destroy$));
 
     this.store.select(selectDraggableItemStyles).subscribe(styles => {
 
@@ -50,7 +52,12 @@ export class DropSectionComponent implements OnInit {
 
         })
       }
-    });
+    }), takeUntil(this._destroy$);
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.unsubscribe();
   }
 
   public drop(event: CdkDragDrop<any[]>): void {
