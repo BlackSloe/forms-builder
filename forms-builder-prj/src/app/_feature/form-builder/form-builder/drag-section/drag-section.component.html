@@ -1,0 +1,11 @@
+<div class="drag-container">
+    <div cdkDropList #draggableList="cdkDropList" [cdkDropListData]="draggableItems" 
+        cdkDropListConnectedTo="drop-list" id="drag-list" class="drag-list">
+
+        <div *ngFor="let draggableItem of draggableItems; let index = index" class="drag-box" cdkDrag>
+
+            <dynamic-component [componentType]="draggableItem.type"></dynamic-component>
+            
+        </div>
+    </div>
+</div>
