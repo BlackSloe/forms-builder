@@ -1,0 +1,32 @@
+.drag-container {
+    min-width: 400px;
+    max-width: 100%;
+    margin: 0 25px 25px 0;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #00000009;
+}
+
+.drag-list {
+    border: solid 1px #ccc;
+    min-height: 60px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+}
+
+.drag-box {
+    padding: 20px 10px;
+    border: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+    margin: 10px;
+  }
+
+.drag-box:hover {
+    cursor: pointer;
+}

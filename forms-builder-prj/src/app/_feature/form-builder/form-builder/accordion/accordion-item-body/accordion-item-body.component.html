@@ -1,0 +1,20 @@
+<ng-container *ngrxLet="formBuilderStyles$ as formBuilderStyles">
+    <ng-container *ngIf="formBuilderStyles !== null">
+
+        <form [formGroup]="stylingFormGroup" (ngSubmit)="onFormSubmit()">
+            <div class="mat-form-field-container">
+                
+                <ng-container *ngFor="let control of formBuilderStyles.styles">
+                    <mat-form-field>
+                        <mat-label>{{ control.propName | separate | titlecase | appendunit:control.validationRules}}
+                        </mat-label>
+                        <input matInput formControlName="{{control.propName}}">
+                    </mat-form-field>
+                </ng-container>
+
+            </div>
+            <button type="submit" class="btn btn-warn">Apply Styles</button>
+        </form>
+
+    </ng-container>
+</ng-container>

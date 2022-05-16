@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+    <span cyid="navbar-header">{{ (isAuthenticated$ | async) ? 'Hello, ' + (userName$ | async)  : 'You need to log in' }}</span>
+    <span class="spacer"></span>
+    <div *ngIf="isAuthenticated$ | async">
+        <button mat-button color="accent" (click)="logoutBtnClick()" cyid="navbar-logout-btn">Logout</button>
+    </div>
+</mat-toolbar>
