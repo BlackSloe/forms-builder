@@ -1,0 +1,60 @@
+.drop-container {
+    min-width: 400px;
+    max-width: 100%;
+    margin: 0 0 25px 0;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #00000009;
+}
+
+.drop-list {
+    border: solid 1px #ccc;
+    min-height: 60px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+    overflow-y: auto;
+}
+
+.drop-box {
+    padding: 20px 10px;
+    border: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+    margin: 10px;
+  }
+
+.drop-box:hover {
+    cursor: all-scroll;
+}
+
+.drop-item {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drop-box:hover {
+    border-color: #673ab7;
+    border-width: 1px;
+}
+
+.drop-item-close {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.drop-item-close:hover {
+    cursor: pointer;
+}
+
+.highlight {
+    border-color: red;
+    border-width: 1px;
+}
