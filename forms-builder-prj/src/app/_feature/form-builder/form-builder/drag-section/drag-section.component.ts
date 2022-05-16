@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
 import { DraggableItemComponentType } from 'src/app/_models/draggable/draggable-item-component-type';
 import { DraggableButtonComponent } from 'src/app/_shared/components/draggable-components/draggable-component-button/draggable-button.component';
 import { DraggableCheckboxComponent } from 'src/app/_shared/components/draggable-components/draggable-component-checkbox/draggable-checkbox.component';

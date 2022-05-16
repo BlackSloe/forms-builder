@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
+
 import { AccordionTabs as Tabs } from 'src/app/_enums/accordion-tabs';
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import { FormBuilderStyleProperty } from 'src/app/_models/form-builder-style-property';

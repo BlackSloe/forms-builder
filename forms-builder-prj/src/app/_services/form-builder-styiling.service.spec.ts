@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+
 import {
     FormBuilderStylePropertyValidationRules as ValidationRules
 } from '../_enums/form-builder-style-property-validation-rules';

@@ -1,8 +1,8 @@
+import { IFormBuilderStyles } from '../_shared/interfaces/form-builder-styles.interface';
+import { FormBuilderStyleProperty } from './form-builder-style-property';
 import {
     FormBuilderStylePropertyValidationRules as ValidationRules
 } from '../_enums/form-builder-style-property-validation-rules';
-import { IFormBuilderStyles } from '../_shared/interfaces/form-builder-styles.interface';
-import { FormBuilderStyleProperty } from './form-builder-style-property';
 
 export class FormBuilderFormStyles implements IFormBuilderStyles {
     public styles: FormBuilderStyleProperty[] = [];

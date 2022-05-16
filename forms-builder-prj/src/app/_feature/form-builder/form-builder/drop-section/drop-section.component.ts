@@ -2,14 +2,15 @@ import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-d
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
+
 import { AppState } from 'src/app/_store/app.states';
+import { DynamicDraggableItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
+import { DraggableItemComponentType } from 'src/app/_models/draggable/draggable-item-component-type';
+import { setDraggableItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 import {
   selectDraggableItemStyles,
   selectFormBuilderFormStyles
 } from 'src/app/_store/selectors/form-builder.selectors';
-import { DynamicDraggableItemComponent } from 'src/app/_shared/components/dynamic-list-item.component';
-import { DraggableItemComponentType } from 'src/app/_models/draggable/draggable-item-component-type';
-import { setDraggableItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
 
 @Component({
   selector: 'app-drop-section',

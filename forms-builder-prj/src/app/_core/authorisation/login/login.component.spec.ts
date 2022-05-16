@@ -3,11 +3,11 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { AuthenticationGuard } from '../../../_helpers/authentication.guard';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { AuthenticationGuard } from 'src/app/_helpers/authentication.guard';
+import { selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { LoginComponent } from './login.component';
-import { selectIsUserAuthenticated } from '../../../_store/selectors/authentication.selectors';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

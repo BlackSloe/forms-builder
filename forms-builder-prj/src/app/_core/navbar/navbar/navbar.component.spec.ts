@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthenticationGuard } from 'src/app/_helpers/authentication.guard';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { NavbarComponent } from './navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
+
 import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { User } from 'src/app/_models/user';
+import { AuthenticationGuard } from 'src/app/_helpers/authentication.guard';
+import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -56,7 +57,9 @@ describe('NavbarComponent', () => {
 
       component.ngOnInit();
 
-      expect(component.isAuthenticated).toEqual(expectedIsAuthenticated);
+      component.isAuthenticated$.subscribe(actualIsAuthenticated => {
+        expect(actualIsAuthenticated).toEqual(expectedIsAuthenticated);
+      }); 
     });
 
     it('should select userName if there is one', () => {
@@ -71,7 +74,9 @@ describe('NavbarComponent', () => {
 
       component.ngOnInit();
 
-      expect(component.userName).toEqual(expectedUserName);
+      component.userName$.subscribe(actualUserName => {
+        expect(actualUserName).toEqual(expectedUserName);
+      }); 
     });
   });
 });

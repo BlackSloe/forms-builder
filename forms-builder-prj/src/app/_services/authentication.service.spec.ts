@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthenticationService } from './authentication.service';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
     HttpClientTestingModule,
     HttpTestingController
 } from '@angular/common/http/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
+import { AuthenticationService } from './authentication.service';
 
 describe('authentication service', () => {
     let httpTestingController: HttpTestingController;

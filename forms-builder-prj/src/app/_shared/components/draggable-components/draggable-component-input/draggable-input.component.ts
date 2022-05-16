@@ -1,5 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import { DraggableItemComponent } from 'src/app/_shared/components/draggable-item.component';
 

@@ -2,10 +2,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
 import { DraggableItemComponentType } from 'src/app/_models/draggable/draggable-item-component-type';
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
 import { setFormBuilderStylesAction } from 'src/app/_store/actions/form-builder.actions';
-
 import { DropSectionComponent } from './drop-section.component';
 
 describe('DropSectionComponent', () => {

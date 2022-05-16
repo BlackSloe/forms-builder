@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
+import { reducers } from '../app.states';
 import {
     clearDraggableItemStylesAction,
     loadFormBuilderFormStylesAction,
@@ -11,7 +13,6 @@ import {
     setFormBuilderStylesSuccessAction,
     setSelectedDraggableItemStylesAction
 } from '../actions/form-builder.actions';
-import { reducers } from '../app.states';
 
 describe('form-builder reducers', () => {
     let storeMock: MockStore;

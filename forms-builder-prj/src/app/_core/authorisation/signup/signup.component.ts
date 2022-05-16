@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AppState } from '../../../_store/app.states';
 import { Store } from '@ngrx/store';
-import { signUpAction } from '../../../_store/actions/user.actions';
+
+import { AppState } from 'src/app/_store/app.states';
+import { signUpAction } from 'src/app/_store/actions/user.actions';
 
 @Component({
   selector: 'app-signup',

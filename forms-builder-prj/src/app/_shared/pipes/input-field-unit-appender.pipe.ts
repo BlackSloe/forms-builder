@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FormBuilderStylePropertyValidationRules as ValidationRules } from 'src/app/_enums/form-builder-style-property-validation-rules';
 
 @Pipe({

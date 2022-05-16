@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { FormBuilderStylePropertyValidationRules } from '../_enums/form-builder-style-property-validation-rules';
 import { FormBuilderFormStyles } from '../_models/form-builder-form-styles';
 import { DraggableItemStyles } from '../_models/draggable/draggable-item-styles';

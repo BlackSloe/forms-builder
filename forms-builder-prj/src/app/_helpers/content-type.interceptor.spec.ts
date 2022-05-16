@@ -1,13 +1,14 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import {
     MockBuilder,
     MockRender,
     NG_MOCKS_INTERCEPTORS
 } from 'ng-mocks';
+
 import { ContentTypeInterceptor } from './content-type.interceptor';
 import { AppModule } from '../app.module';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 describe('ContentTypeInterceptor', () => {
     beforeEach(async () => {

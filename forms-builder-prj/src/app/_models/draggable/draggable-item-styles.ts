@@ -1,7 +1,9 @@
-import { FormBuilderStylePropertyValidationRules as ValidationRules} from 'src/app/_enums/form-builder-style-property-validation-rules';
-
 import { IFormBuilderStyles } from 'src/app/_shared/interfaces/form-builder-styles.interface';
 import { DraggableItemStyleProperty } from './draggable-item-style-property';
+import {
+    FormBuilderStylePropertyValidationRules as ValidationRules
+} from 'src/app/_enums/form-builder-style-property-validation-rules';
+
 
 
 export class DraggableItemStyles implements IFormBuilderStyles {

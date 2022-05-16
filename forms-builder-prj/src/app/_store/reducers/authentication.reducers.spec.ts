@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
+import { reducers } from '../app.states';
 import { User } from 'src/app/_models/user';
 import {
   loadUser,
@@ -12,7 +14,6 @@ import {
   signUpAction,
   signUpSuccessAction
 } from '../actions/user.actions';
-import { reducers } from '../app.states';
 
 describe('authentication reducers', () => {
   let storeMock: MockStore;

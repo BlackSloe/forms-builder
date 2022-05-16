@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AppState } from 'src/app/_store/app.states';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+
+import { AppState } from 'src/app/_store/app.states';
+import { selectAuthenticatedUser, selectIsUserAuthenticated } from 'src/app/_store/selectors/authentication.selectors';
 import { loadUser, logoutAction } from 'src/app/_store/actions/user.actions';
+
 
 @Component({
   selector: 'app-navbar',
@@ -11,32 +14,22 @@ import { loadUser, logoutAction } from 'src/app/_store/actions/user.actions';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isAuthenticated: boolean;
-
-  private _userName: string;
+  public isAuthenticated$: Observable<boolean>;
+  public userName$: Observable<string>;
 
   constructor(private store: Store<AppState>,
     private router: Router) { }
 
-
-  public get userName(): string {
-    return this._userName;
-  }
-
   ngOnInit(): void {
     this.store.dispatch(loadUser());
 
-    this.store.select(selectIsUserAuthenticated)
-      .subscribe(isAuthenticated => {
-        this.isAuthenticated = isAuthenticated;
-      });
+    this.isAuthenticated$ = this.store.select(selectIsUserAuthenticated);
 
-    this.store.select(selectAuthenticatedUser)
-      .subscribe(user => {
-        if (user) {
-          this._userName = user.userName;
-        }
-      });
+    this.userName$ = this.store.select(selectAuthenticatedUser).pipe(
+      map(user => {
+        return user.userName
+      })
+    );
   }
 
   public logoutBtnClick(): void {

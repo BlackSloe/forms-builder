@@ -1,12 +1,13 @@
 import { CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
 import { AccordionTabs } from 'src/app/_enums/accordion-tabs';
 import { DraggableItemStyles } from 'src/app/_models/draggable/draggable-item-styles';
 import { FormBuilderFormStyles } from 'src/app/_models/form-builder-form-styles';
-import { loadDraggableItemStylesAction, loadFormBuilderFormStylesAction, setDraggableItemStylesAction, setFormBuilderStylesAction, setSelectedDraggableItemStylesAction } from 'src/app/_store/actions/form-builder.actions';
-import { selectDraggableItemStyles, selectFormBuilderFormStyles } from 'src/app/_store/selectors/form-builder.selectors';
+import { loadDraggableItemStylesAction, loadFormBuilderFormStylesAction, setDraggableItemStylesAction, setFormBuilderStylesAction } from 'src/app/_store/actions/form-builder.actions';
+import { selectDraggableItemStyles } from 'src/app/_store/selectors/form-builder.selectors';
 
 import { AccordionComponent } from './accordion.component';
 

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { User } from 'src/app/_models/user';
 import { AuthenticationActionTypes } from 'src/app/_enums/authentication.action.types';
 

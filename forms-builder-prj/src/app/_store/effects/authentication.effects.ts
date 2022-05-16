@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User } from 'src/app/_models/user';
@@ -24,7 +25,6 @@ export class AuthenticationEffects {
         return this.authService.login(payLoad.userName, payLoad.password)
           .pipe(
             map((user: User) => {
-              console.log(user);
               if (user) {
                 return loginSuccessAction({ user });
               }
