@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "userName": "test",
+      "password": "test",
+      "token": "123token",
+      "id": 1
+    },
+    {
+      "userName": "qwerty",
+      "password": "qwerty",
+      "token": "",
+      "id": 2
+    },
+    {
+      "userName": "wow",
+      "password": "wow",
+      "token": "123token",
+      "id": 4
+    },
+    {
+      "userName": "sasha_lox",
+      "password": "sasha_123",
+      "token": "123token",
+      "id": 5
+    },
+    {
+      "userName": "free cheese ",
+      "password": "free cheese",
+      "token": "123token",
+      "id": 6
+    },
+    {
+      "userName": "free cheese 1",
+      "password": "free cheese 1",
+      "token": "123token",
+      "id": 7
+    },
+    {
+      "userName": "qqq",
+      "password": "qqq",
+      "token": "123token",
+      "id": 8
+    },
+    {
+      "userName": "zadan",
+      "password": "zadan",
+      "token": "",
+      "id": 9
+    }
+  ]
+}

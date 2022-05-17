@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="text-center">
+                    <h1>Login</h1>
+                    <h5>Please enter your user name and password</h5>
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="login()" cyid="login-form">
+                    <div class="mb-3">
+                        <mat-form-field class="mat-form-field-container">
+                            <mat-label>User name</mat-label>
+                            <input matInput required formControlName="userName" type="text" id="inputUserName" cyid="login-form-user-name">
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field class="mat-form-field-container">
+                            <mat-label>Password</mat-label>
+                            <input matInput required formControlName="password" type="text" id="inputPassword" cyid="login-form-user-password">
+                        </mat-form-field>
+                    </div>
+                    <button type="submit" class="btn btn-primary" cyid="login-form-login-btn">Login</button>
+                </form>
+                <a routerLink="/signup" cyid="signup-link">New user? Sign up now!</a>
+            </div>
+        </div>
+    </div>
+</div>

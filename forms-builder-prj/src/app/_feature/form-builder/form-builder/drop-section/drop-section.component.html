@@ -1,0 +1,15 @@
+<div class="drop-container">
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="draggableItems" 
+        (cdkDropListDropped)="drop($event)" id="drop-list" [ngStyle]="formStyles$ | ngrxPush" class="drop-list">
+
+        <div *ngFor="let draggableItem of draggableItems; let index = index" [attr.id]="index" [ngClass]="{'highlight': selectedIndex === index}"
+            class="drop-box" (click)="onItemClick(index)" cdkDrag>
+            <div class="drop-item">
+
+                <dynamic-component [componentType]="draggableItem.type"></dynamic-component>
+
+                <p class="drop-item-close" (click)="onItemCloseClick(index)">x</p>
+            </div>
+        </div>
+    </div>
+</div>
